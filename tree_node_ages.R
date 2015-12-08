@@ -17,7 +17,7 @@ library(plyr)
 library(RColorBrewer)
 
 ### read in the tree
-my.trees<-read.nexus("All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ########################################################################################################
@@ -37,7 +37,7 @@ node.depths<-as.data.frame(node.depths)
 ########################################################################################################
 
 ### read in the node ages and heights from the vstat file
-HPD<-read.csv("bipartition_ages.csv")
+HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### add the node ages and credible intervals to the node depths
 node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
@@ -50,7 +50,7 @@ my.tree$node.label<-paste("Node: ",node.depths$nodes,"\n",node.depths$Median_age
 ########################################################################################################
 
 ### read in the list of names
-name<-read.csv("all_names.csv")
+name<-read.csv("Data/all_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
@@ -170,23 +170,31 @@ tree.rename3<-my.trees[[1]]
 ###tree.rename3$edge.length
 
 ### read in teh island data
-islands<-read.csv("dist_ultra.csv")
+##islands<-read.csv("dist_ultra.csv")
 
 ### calculate the ML character reconstruction
 #Cratopus_islands<-ace(islands$island,tree.rename3,type="discrete")
   
-Cratopus_anc<-read.csv("RASP_anc.csv", row.names=2, header=TRUE)
-Cratopus_anc<-Cratopus_anc[,2:14]
+Cratopus_anc<-read.csv("Data/Cratopus_results1_trimmed.csv", row.names=1, header=TRUE)
+
+### Sum all the islands probabilities
+Cratopus_anc$total<-rowSums(Cratopus_anc[,c(2:13)])
 
 ### replace all the islands that are less than 5% probability with zero
-Cratopus_anc[,1:12][Cratopus_anc[,1:12] < 5] <- 0
-Cratopus_anc$combined<-100-rowSums(Cratopus_anc[,1:12])
+Cratopus_anc[,2:13][Cratopus_anc[,2:13] < 0.05] <- 0
+
+### Sum all the islands probabilities again with n/s vaues zeroed
+Cratopus_anc$s<-rowSums(Cratopus_anc[,c(2:13)])
+
+### subtract the significant results from the total to get the n/s
+Cratopus_anc$ns<-Cratopus_anc$total-Cratopus_anc$s
+
+## Drop total and s
+Cratopus_anc<-Cratopus_anc[,c(2:13,16)]
 
 Cratopus_anc<-as.matrix(Cratopus_anc)
-test<-rowSums(Cratopus_anc)
-test
 
-### COnvert node lables to numeric and round to two dp
+### Convert node lables to numeric and round to two dp
 tree.rename3$node.label<-as.numeric(tree.rename3$node.label)
 tree.rename3$node.label<-round(tree.rename3$node.label,digits=2)
 
@@ -210,7 +218,7 @@ tree.rename3$tip.label <- (name$Alt_label[match(tree.rename3$tip.label,name$Name
 str(tree.rename3$tip.label)
 
 ### plot the tree with the character reconstruction mapped
-pdf(file=paste(out,"RASP_biogeography.pdf",sep=""), 30, 30)
+pdf(file=paste(out,"BayArea_biogeography.pdf",sep=""), 30, 30)
 plot(tree.rename3, show.node.label=FALSE, label.offset=0.0, cex=2)
 nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
 nodelabels(tree.rename3$node.label,adj=c(2,2),frame="none",
