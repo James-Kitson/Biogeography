@@ -57,12 +57,6 @@ name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 ### the next line uses match to perform the same function as vlookup in excel
 my.tree$tip.label <- (name$Alt_label[match(my.tree$tip.label,name$Name)])
 
-#### plot the tree with node ages listed on nodes
-pdf(paste(out,"nodeages.pdf"),70,70)
-plot(my.tree,
-     show.node.label=TRUE)
-dev.off()
-
 ########################################################################################################
 ######################## Plot the tree with support values and a nice scale ############################
 ########################################################################################################
@@ -175,7 +169,7 @@ tree.rename3<-my.trees[[1]]
 ### calculate the ML character reconstruction
 #Cratopus_islands<-ace(islands$island,tree.rename3,type="discrete")
   
-Cratopus_anc<-read.csv("Data/Cratopus_results1_trimmed.csv", row.names=1, header=TRUE)
+Cratopus_anc<-read.csv("Data/Cratopus_results2_model1.csv", row.names=1, header=TRUE)
 
 ### Sum all the islands probabilities
 Cratopus_anc$total<-rowSums(Cratopus_anc[,c(2:13)])
@@ -218,7 +212,7 @@ tree.rename3$tip.label <- (name$Alt_label[match(tree.rename3$tip.label,name$Name
 str(tree.rename3$tip.label)
 
 ### plot the tree with the character reconstruction mapped
-pdf(file=paste(out,"BayArea_biogeography.pdf",sep=""), 30, 30)
+pdf(file=paste(out,"BayArea_biogeography_model1.pdf",sep=""), 30, 30)
 plot(tree.rename3, show.node.label=FALSE, label.offset=0.0, cex=2)
 nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
 nodelabels(tree.rename3$node.label,adj=c(2,2),frame="none",
