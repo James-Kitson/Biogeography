@@ -5,10 +5,6 @@
 ### Clear the workspace
 rm(list=ls())
 
-### set working directory
-setwd("~/Desktop/temporary_cratopus/M_corrected_mutation_rate/multiplied")
-dir.create(paste(getwd(),"/diagrams/",sep=""))
-out<-paste(getwd(),"/diagrams/",sep="")
 
 ### open APE
 library(ape)
@@ -16,7 +12,7 @@ library(phytools)
 library(plyr)
 
 ### read in the tree
-my.trees<-read.nexus("All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ########################################################################################################

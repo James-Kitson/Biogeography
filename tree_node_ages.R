@@ -5,11 +5,6 @@
 ### Clear the workspace
 rm(list=ls())
 
-### set working directory
-setwd("~/Desktop/temporary_cratopus/M_corrected_mutation_rate/multiplied")
-dir.create(paste(getwd(),"/diagrams/",sep=""))
-out<-paste(getwd(),"/diagrams/",sep="")
-
 ### open APE
 library(ape)
 library(phytools)
@@ -17,7 +12,7 @@ library(plyr)
 library(RColorBrewer)
 
 ### read in the tree
-my.trees<-read.nexus("All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ########################################################################################################
@@ -36,7 +31,7 @@ node.depths<-as.data.frame(node.depths)
 ########################################################################################################
 
 ### subtract all the distances from the tip to each node from the maximum depth to get node heights
-##node.heights<-max(nodeHeights(my.tree))-node.depths
+node.heights<-max(nodeHeights(my.tree))-node.depths
 
 ### multiply the mutation rate by the rate mulitplier
 ###age.correction<-0.0154*2.67
@@ -70,7 +65,7 @@ node.depths<-as.data.frame(node.depths)
 ########################################################################################################
 
 ### read in the node ages and heights from the vstat file
-HPD<-read.csv("bipartition_ages.csv")
+HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### add the node ages and credible intervals to the node depths
 node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
@@ -83,7 +78,7 @@ my.tree$node.label<-paste("Node: ",node.depths$nodes,"\n",node.depths$Median_age
 ########################################################################################################
 
 ### read in the list of names
-name<-read.csv("all_names.csv")
+name<-read.csv("Data/all_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
@@ -115,7 +110,7 @@ str(tree.rename$node.label)
 
 #########################################################
 ### Plot the main combined tree with support values
-pdf(file=paste(out,"nodevalues.pdf",sep=""), 30, 30)
+pdf(file="Diagrams/nodevalues.pdf", 30, 30)
 ###svg(file=paste(out,"nodevalues.svg",sep=""), 30, 30)
 plot(tree.rename,
      show.node.label=FALSE,
