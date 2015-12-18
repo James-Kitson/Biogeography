@@ -11,6 +11,10 @@ library(phytools)
 library(plyr)
 library(RColorBrewer)
 library(BioGeoBEARS)
+library(optimx)
+library(FD)
+library(snow)
+library(parallel)
 
 ### read in the tree
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
