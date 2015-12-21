@@ -7,16 +7,20 @@
 ### Clear the workspace
 rm(list=ls())
 
+<<<<<<< HEAD
 ### set working directory
 setwd("~/Documents/Projects/Cratopus project/R analyses/Biogeography")
 dir.create(paste(getwd(),"/Diagrams/",sep=""))
 out<-paste(getwd(),"/Diagrams/",sep="")
 
+=======
+>>>>>>> c1942cb4833d3e81a1d32185453c6b80e8e1acc3
 ### open APE
 library(ape)
 library(phytools)
 library(plyr)
 library(RColorBrewer)
+library(BioGeoBEARS)
 
 ### read in the tree
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
@@ -33,6 +37,42 @@ nodes<-seq(1, length(my.tree$node.label))
 node.depths<-cbind(nodes,node.depths)
 node.depths<-as.data.frame(node.depths)
 
+<<<<<<< HEAD
+=======
+########################################################################################################
+####### the next bit is used when manually correcting the ages on branch lengths with a fixed clock ####
+########################################################################################################
+
+### subtract all the distances from the tip to each node from the maximum depth to get node heights
+node.heights<-max(nodeHeights(my.tree))-node.depths
+
+### multiply the mutation rate by the rate mulitplier
+###age.correction<-0.0154*2.67
+
+#### scale the nodes to time
+###node.depths.corrected<-node.depths/age.correction
+###node.depths.corrected<-as.data.frame(node.depths.corrected)
+###node.depths.corrected<-format(round(node.depths.corrected,2), nsmall=2)
+###names(node.depths.corrected)<-"age"
+
+### read in the manually calculated credibility intervals as this isn't included in the .nex.con.tree file
+###HPD<-read.csv("corrected_HPD.csv", header=TRUE)
+###HPD<-format(round(HPD,2), nsmall=2)
+
+### a further HPD object in numeric for is needed for the next plot
+###HPD2<-read.csv("corrected_HPD.csv", header=TRUE)
+
+### the next two lines use match to perform the same function as vlookup in excel and matches
+### the corrected credibility intervals taken from MrBayes to the corrected node heights here.
+###node.depths.corrected$low <- (HPD$low.HPD[match(node.depths.corrected$age,HPD$Age)])
+###node.depths.corrected$high <- (HPD$high.HPD[match(node.depths.corrected$age,HPD$Age)])
+
+### make the node labels the ages
+###my.tree$node.label<-paste(node.depths.corrected$age," (high_95: ",node.depths.corrected$high," /low_95: ",node.depths.corrected$low,")", sep="")
+
+########################################################################################################
+########################################################################################################
+>>>>>>> c1942cb4833d3e81a1d32185453c6b80e8e1acc3
 
 ########################################################################################################
 ####### the next bit is used when manually correcting the ages on branch lengths with a fixed clock ####
@@ -78,7 +118,7 @@ str(tree.rename$node.label)
 
 #########################################################
 ### Plot the main combined tree with support values
-pdf(file=paste(out,"nodevalues.pdf",sep=""), 30, 30)
+pdf(file="Diagrams/nodevalues.pdf", 30, 30)
 ###svg(file=paste(out,"nodevalues.svg",sep=""), 30, 30)
 plot(tree.rename,
      show.node.label=FALSE,
