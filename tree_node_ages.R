@@ -4,17 +4,14 @@
 
   
    ### test
-### Clear the workspace
+### Clear the workspace 
 rm(list=ls())
 
-<<<<<<< HEAD
-### set working directory
+### set working directory ####
 setwd("~/Documents/Projects/Cratopus project/R analyses/Biogeography")
 dir.create(paste(getwd(),"/Diagrams/",sep=""))
 out<-paste(getwd(),"/Diagrams/",sep="")
 
-=======
->>>>>>> c1942cb4833d3e81a1d32185453c6b80e8e1acc3
 ### open APE
 library(ape)
 library(phytools)
@@ -37,8 +34,6 @@ nodes<-seq(1, length(my.tree$node.label))
 node.depths<-cbind(nodes,node.depths)
 node.depths<-as.data.frame(node.depths)
 
-<<<<<<< HEAD
-=======
 ########################################################################################################
 ####### the next bit is used when manually correcting the ages on branch lengths with a fixed clock ####
 ########################################################################################################
@@ -72,7 +67,6 @@ node.heights<-max(nodeHeights(my.tree))-node.depths
 
 ########################################################################################################
 ########################################################################################################
->>>>>>> c1942cb4833d3e81a1d32185453c6b80e8e1acc3
 
 ########################################################################################################
 ####### the next bit is used when manually correcting the ages on branch lengths with a fixed clock ####
