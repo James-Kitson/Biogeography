@@ -2,7 +2,7 @@
 ######################## Script for plotting Cratopus trees ############################
 ########################################################################################################
 
-### Clear the workspace 
+### Clear the workspace
 rm(list=ls())
 
 ### open APE
@@ -16,6 +16,9 @@ library(BioGeoBEARS)
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
+### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
+HPD<-read.csv("Data/bipartition_ages.csv")
+
 ### read in the list of names
 name<-read.csv("Data/all_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
@@ -28,6 +31,7 @@ name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 
 ### resolve polytomies
 tree.resolve<-multi2di(my.tree, random=TRUE)
+
 ### resolve zero length branches
 tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
 ### check it has worked
@@ -39,8 +43,6 @@ colnames(islands)<-c("sample","island")
 
 ### calculate the ML character reconstruction
 Cratopus_anc<-ace(islands$island,tree.resolve,type="discrete")
-
-nodelabels(thermo = ans$lik.anc, piecol = co, cex = 0.75)
 
 ### set some colours for the islands
 r.col<-c("#0000ff",
@@ -85,7 +87,7 @@ legend(x=0.005, y=25,
        fill=r.col,
        cex=1.5)
 
-### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the 
+#### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
 ### the oldest value on the tree.
@@ -97,4 +99,5 @@ axis(side=1,
      padj=1,
      at=seq(-offset, max(nodeHeights(tree.resolve)), by=(max(nodeHeights(tree.resolve))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+
 dev.off()
