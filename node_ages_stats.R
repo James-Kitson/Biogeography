@@ -5,15 +5,20 @@
 ### Clear the workspace
 rm(list=ls())
 
-
 ### open APE
 library(ape)
 library(phytools)
 library(plyr)
 
-### read in the tree
+### read in the trees
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
-my.tree<-my.trees[[1]]
+
+### process the trees
+my.tree<-my.trees[[1]] ### raw outpout from MrBayes with polytomies
+#my.tree<-multi2di(my.trees[[1]], random=TRUE) ### MrBayes output with polytomies resolved for ML character reconstruction
+
+### check this has worked
+is.binary.tree(my.tree)
 
 ########################################################################################################
 ######################## Plot the tree with node ages ############################
