@@ -148,7 +148,7 @@ tree.rename2<-my.trees[[1]]
 ### the next line uses match to perform the same function as vlookup in excel
 tree.rename2$tip.label <- (name$Alt_label[match(tree.rename2$tip.label,name$Name)])
 
-### COnvert node lables to numeric and round to two dp
+### Convert node lables to numeric and round to two dp
 tree.rename2$node.label<-as.numeric(tree.rename2$node.label)
 tree.rename2$node.label<-round(tree.rename2$node.label,digits=2)
 
