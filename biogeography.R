@@ -19,3 +19,5 @@ library(parallel)
 ### read in the tree
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
+
+test
