@@ -71,14 +71,14 @@ node.heights<-max(nodeHeights(my.tree))-node.depths
 ########################################################################################################
 
 ### read in the node ages and heights from the vstat file
-HPD<-read.csv("Data/bipartition_ages.csv")
+#HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### add the node ages and credible intervals to the node depths
-node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
-node.depths$Median_high <- round((HPD$CredInt_Upper[match(node.depths$node.depths,HPD$Median_height)]),2)
-node.depths$Median_low <- round((HPD$CredInt_Lower[match(node.depths$node.depths,HPD$Median_height)]),2)
+#node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
+#node.depths$Median_high <- round((HPD$CredInt_Upper[match(node.depths$node.depths,HPD$Median_height)]),2)
+#node.depths$Median_low <- round((HPD$CredInt_Lower[match(node.depths$node.depths,HPD$Median_height)]),2)
 
-my.tree$node.label<-paste("Node: ",node.depths$nodes,"\n",node.depths$Median_age,"(high_95: ",node.depths$Median_high," /low_95: ",node.depths$Median_low,")", sep="")
+#my.tree$node.label<-paste("Node: ",node.depths$nodes,"\n",node.depths$Median_age,"(high_95: ",node.depths$Median_high," /low_95: ",node.depths$Median_low,")", sep="")
 
 ########################################################################################################
 ########################################################################################################
