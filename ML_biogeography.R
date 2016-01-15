@@ -16,65 +16,31 @@ library(BioGeoBEARS)
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
-########################################################################################################
-######################## Plot the tree with node ages ############################
-########################################################################################################
-
-### Calculate the branch depths for each node (distance from tip) and the node number
-node.depths<-as.numeric(branching.times(my.tree))
-node.depths<-round(node.depths,7)
-nodes<-seq(1, length(my.tree$node.label))
-node.depths<-cbind(nodes,node.depths)
-node.depths<-as.data.frame(node.depths)
-
 ### read in the list of names
 name<-read.csv("Data/all_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
-### the next line uses match to perform the same function as vlookup in excel
-my.tree$tip.label <- (name$Alt_label[match(my.tree$tip.label,name$Name)])
-
 
 ########################################################################################################
 ######################## Do some rough phylogeography ############################
 ########################################################################################################
 
-### get the tree and resolve polytomies
-tree.rename3<-my.trees[[1]]
+### resolve polytomies
+tree.resolve<-multi2di(my.tree, random=TRUE)
 ### resolve zero length branches
-###tree.rename3$edge.length<-ifelse(tree.rename3$edge.length==0,0.0000000001,tree.rename3$edge.length)
+tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
 ### check it has worked
-###tree.rename3$edge.length
+tree.resolve$edge.length
 
-### read in teh island data
-##islands<-read.csv("dist_ultra.csv")
+### read in the island data
+islands<-read.csv("DATA/dist_ultra.csv", header=FALSE)
+colnames(islands)<-c("sample","island")
 
 ### calculate the ML character reconstruction
-#Cratopus_islands<-ace(islands$island,tree.rename3,type="discrete")
+Cratopus_anc<-ace(islands$island,tree.resolve,type="discrete")
 
-Cratopus_anc<-read.csv("Data/Cratopus_results2_model1.csv", row.names=1, header=TRUE)
-
-### Sum all the islands probabilities
-Cratopus_anc$total<-rowSums(Cratopus_anc[,c(2:13)])
-
-### replace all the islands that are less than 5% probability with zero
-Cratopus_anc[,2:13][Cratopus_anc[,2:13] < 0.05] <- 0
-
-### Sum all the islands probabilities again with n/s vaues zeroed
-Cratopus_anc$s<-rowSums(Cratopus_anc[,c(2:13)])
-
-### subtract the significant results from the total to get the n/s
-Cratopus_anc$ns<-Cratopus_anc$total-Cratopus_anc$s
-
-## Drop total and s
-Cratopus_anc<-Cratopus_anc[,c(2:13,16)]
-
-Cratopus_anc<-as.matrix(Cratopus_anc)
-
-### Convert node lables to numeric and round to two dp
-tree.rename3$node.label<-as.numeric(tree.rename3$node.label)
-tree.rename3$node.label<-round(tree.rename3$node.label,digits=2)
+nodelabels(thermo = ans$lik.anc, piecol = co, cex = 0.75)
 
 ### set some colours for the islands
 r.col<-c("#0000ff",
@@ -92,16 +58,16 @@ r.col<-c("#0000ff",
          "#000000")
 
 ### the next line uses match to perform the same function as vlookup in excel
-tree.rename3$tip.label <- (name$Alt_label[match(tree.rename3$tip.label,name$Name)])
-str(tree.rename3$tip.label)
+tree.resolve$tip.label <- (name$Alt_label[match(tree.resolve$tip.label,name$Name)])
+str(tree.resolve$tip.label)
 
 ### plot the tree with the character reconstruction mapped
-pdf(file=paste(out,"BayArea_biogeography_model1.pdf",sep=""), 30, 30)
-plot(tree.rename3, show.node.label=FALSE, label.offset=0.0, cex=2)
-nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
-nodelabels(tree.rename3$node.label,adj=c(2,2),frame="none",
-           col=ifelse(tree.rename3$node.label>0.9,"red",
-                      ifelse(tree.rename3$node.label>=0.5 & tree.rename3$node.label<0.9,"blue","#0000ff00")),cex=1)
+pdf(file="Diagrams/ML_biogeography.pdf", 30, 30)
+plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=2)
+nodelabels(pie = Cratopus_anc$lik.anc, piecol = r.col, cex = 0.75)
+nodelabels(tree.resolve$node.label,adj=c(2,2),frame="none",
+           col=ifelse(tree.resolve$node.label>0.9,"red",
+                      ifelse(tree.resolve$node.label>=0.5 & tree.resolve$node.label<0.9,"blue","#0000ff00")),cex=1)
 legend(x=0.005, y=25,
        legend=c("Madagascar",
                 "Reunion",
@@ -123,12 +89,12 @@ legend(x=0.005, y=25,
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
 ### the oldest value on the tree.
-offset<-(round_any(max(HPD$Median),0.5)-max(HPD$Median))*(max(nodeHeights(tree.rename3))/max(HPD$Median))
+offset<-(round_any(max(HPD$Median),0.5)-max(HPD$Median))*(max(nodeHeights(tree.resolve))/max(HPD$Median))
 
 ## put on a the correct axis
 axis(side=1,
      cex.axis=1,
      padj=1,
-     at=seq(-offset, max(nodeHeights(tree.rename3)), by=(max(nodeHeights(tree.rename3))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
+     at=seq(-offset, max(nodeHeights(tree.resolve)), by=(max(nodeHeights(tree.resolve))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
 dev.off()
