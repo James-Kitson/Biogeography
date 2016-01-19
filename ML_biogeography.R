@@ -72,10 +72,16 @@ str(tree.resolve$tip.label)
 ### plot the tree with the character reconstruction mapped
 pdf(file="Diagrams/ML_biogeography.pdf", 30, 30)
 plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=2)
+### add biogeographic piecharts
 nodelabels(pie = Cratopus_anc$lik.anc, piecol = r.col, cex = 0.75)
+### add bayesian support values
 nodelabels(tree.resolve$node.label,adj=c(2,2),frame="none",
            col=ifelse(tree.resolve$node.label>0.9,"red",
                       ifelse(tree.resolve$node.label>=0.5 & tree.resolve$node.label<0.9,"blue","#0000ff00")),cex=1)
+### add node numbers
+tree.resolve$node.number<-seq(1, length(tree.resolve$node.label),1)
+nodelabels(tree.resolve$node.number,adj=c(3.2,3.2),frame="none",col="black")
+
 legend(x=0.005, y=25,
        legend=c("Madagascar",
                 "Reunion",
