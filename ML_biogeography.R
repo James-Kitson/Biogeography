@@ -30,9 +30,15 @@ name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 ########################################################################################################
 
 ### resolve polytomies
-tree.resolve<-multi2di(my.tree, random=TRUE)
+tree.resolve.out<-multi2di(my.tree, random=TRUE)
 
-### resolve zero length branches
+### write the tree to an ouptut file. The polytomies are resolved randomly so you need to write out a file and use that in future
+#write.nexus(tree.resolve.out, file = "Data/resolved_tree.nex")
+
+### read in the resolved tree
+tree.resolve<-read.nexus("Data/resolved_tree.nex")
+
+### give zero length branches an arbitrarily short length
 tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
 ### check it has worked
 tree.resolve$edge.length
