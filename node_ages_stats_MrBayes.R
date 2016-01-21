@@ -11,11 +11,7 @@ library(phytools)
 library(plyr)
 
 ### read in the trees
-my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
-
-### process the trees
-my.tree<-my.trees[[1]] ### raw outpout from MrBayes with polytomies
-#my.tree<-multi2di(my.trees[[1]], random=TRUE) ### MrBayes output with polytomies resolved for ML character reconstruction
+my.tree<-read.nexus("Data/resolved_tree.nex")
 
 ### check this has worked
 is.binary.tree(my.tree)
@@ -40,7 +36,9 @@ node.depths$Median_high <- round((HPD$CredInt_Upper[match(node.depths$node.depth
 node.depths$Median_low <- round((HPD$CredInt_Lower[match(node.depths$node.depths,HPD$Median_height)]),2)
 
 ### identify the numbers of flight loss nodes
-fl.loss<-c(52,45,34,7,29)
+fl.loss<-c(57,50,39, ### FIX this
+
+           #7,29)
 
 ### create a df of just the non-flight loss nodes
 fl<-node.depths[-fl.loss,]

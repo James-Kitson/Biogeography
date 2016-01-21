@@ -2,7 +2,7 @@
 ######################## Script for plotting Cratopus trees ############################
 ########################################################################################################
 
-### Clear the workspace 
+### Clear the workspace
 rm(list=ls())
 
 ### set working directory ####
@@ -71,7 +71,7 @@ node.heights<-max(nodeHeights(my.tree))-node.depths
 ########################################################################################################
 
 ### read in the node ages and heights from the vstat file
-#HPD<-read.csv("Data/bipartition_ages.csv")
+HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### add the node ages and credible intervals to the node depths
 #node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
@@ -120,8 +120,11 @@ plot(tree.rename,
 nodelabels(tree.rename$node.label,adj=c(1.1,1.3),frame="none",
            col=ifelse(tree.rename$node.label>0.9,"red",
                       ifelse(tree.rename$node.label>=0.5 & tree.rename$node.label<0.9,"blue","#0000ff00")),cex=1)
+### add node numbers
+tree.rename$node.number<-seq(1, length(tree.rename$node.label),1)
+nodelabels(tree.rename$node.number,adj=c(1.1,3),frame="none",col="black")
 
-### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the 
+### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
 ### the oldest value on the tree.
@@ -162,7 +165,6 @@ tree.rename2$node.label<-seq(1, length(tree.rename2$node.label),1)
 #########################################################
 ### Plot the main combined tree with node numbers
 pdf(file=paste(out,"nodenumbers.pdf",sep=""), 30, 30)
-###svg(file=paste(out,"nodevalues.svg",sep=""), 30, 30)
 plot(tree.rename2,
      show.node.label=FALSE,
      cex=2,
@@ -170,7 +172,7 @@ plot(tree.rename2,
      label.offset=0.001)
 nodelabels(tree.rename2$node.label,adj=c(1.1,1.3),cex=1)
 
-### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the 
+### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
 ### the oldest value on the tree.
@@ -202,7 +204,7 @@ tree.rename3<-my.trees[[1]]
 
 ### calculate the ML character reconstruction
 #Cratopus_islands<-ace(islands$island,tree.rename3,type="discrete")
-  
+
 Cratopus_anc<-read.csv("Data/Cratopus_results2_model1.csv", row.names=1, header=TRUE)
 
 ### Sum all the islands probabilities
@@ -240,7 +242,7 @@ r.col<-c("#0000ff",
          "#483d8b",
          "#e0ffff",
          "#000000")
- 
+
 ### the next line uses match to perform the same function as vlookup in excel
 tree.rename3$tip.label <- (name$Alt_label[match(tree.rename3$tip.label,name$Name)])
 str(tree.rename3$tip.label)
@@ -269,7 +271,7 @@ legend(x=0.005, y=25,
        fill=r.col,
        cex=1.5)
 
-### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the 
+### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
 ### the oldest value on the tree.
