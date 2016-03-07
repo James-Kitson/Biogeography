@@ -32,7 +32,7 @@ node.depths<-cbind(nodes,node.depths)
 node.depths<-as.data.frame(node.depths)
 
 ### read in the node ages and heights from the vstat file
-HPD<-read.csv("bipartition_ages.csv")
+HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### add the node ages and credible intervals to the node depths
 node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Median_height)]),2)
@@ -56,19 +56,22 @@ iter<-1000
 ### create a vector to fill with bootstrap values
 mean.fl<-numeric(iter)
 
-### loop across the non-flightloss node ages to get a vector of mean node ages where the sample size is the same as the flight loss nodes
+### repeatedly sample the non-flightloss node ages to get a vector of mean node ages where the sample size is the same as the flight loss nodes
 for(i in 1:iter){
   mean.fl[i]<-mean(sample(fl$Median_age, size =length(fl.loss),
                           replace=TRUE))
 }
 
 ### plot a histogram and label the mean flightloss node age
+png(filename="Diagrams/flightloss_vs_flight_BBM_biogeography", width=1000)
 node.samp<-hist(mean.fl,breaks=100,
+                main="Histogram of flightloss vs normal node ages ML bioeography",
                 xlab="Mean nodal age",
-                xlim=c(0,5))
+                xlim=c(0,4))
 abline(v=mean(node.depths[fl.loss,"Median_age"]),
        col="red")
-
+title(sub="flight loss nodes are significantly younger, t = 41.4841, df = 999, p-value < 2.2e-16")
+dev.off()
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 t.test(mean.fl, mu=mean(node.depths[fl.loss,"Median_age"]))
 
@@ -93,12 +96,16 @@ for(i in 1:iter){
                                replace=TRUE))
 }
 
-### plot a histogram and label the mean flightloss node age
+### plot a histogram and label the mean mauritian colonisation age
+png(filename="Diagrams/Maucol_vs_Reucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=100,
+                main="Histogram of mauritian vs reunion colonisation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[mau.col,"Median_age"]),
        col="red")
+title(sub="Mauritian colonisation nodes are significantly younger than reunion colonisations, t = 54.0667, df = 999, p-value < 2.2e-16")
+dev.off()
 
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 t.test(mean.reu.col, mu=mean(node.depths[mau.col,"Median_age"]))
@@ -120,18 +127,22 @@ for(i in 1:iter){
                                 replace=TRUE))
 }
 
-### plot a histogram and label the mean flightloss node age
+### plot a histogram and label the mean insitu speciation age
+png(filename="Diagrams/insituReu_vs_Reucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=20,
+                main="Histogram of reunion insitu speciation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[reu.insitu,"Median_age"]),
        col="red")
+title(sub="reunion insitu speciation nodes are significantly younger than colonisation nodes, t = 3.2722, df = 999, p-value = 0.001104")
+dev.off()
 
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 t.test(mean.reu.col, mu=mean(node.depths[reu.insitu,"Median_age"]))
 
 ########################################################################################################
-#### testing in situ node ages vs colonisation ages for Mauritius
+#### testing in situ node ages vs colonisation ages for Mauritius - This needs to be in line with previous graph
 ########################################################################################################
 
 ### identify in situ nodes for Mauritius
@@ -149,13 +160,16 @@ for(i in 1:iter){
                                   replace=TRUE))
 }
 
-### plot a histogram and label the mean flightloss node age
+### plot a histogram and label the mean insitu speciation node age
+png(filename="Diagrams/insituMau_vs_Maucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.mau.insitu,breaks=100,
+                main="Histogram of mauritian insitu speciation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[mau.col,"Median_age"]),
        col="red")
+title(sub="Mauritian insitu speciation nodes are significantly older than colonisation nodes, t = -4.0838, df = 999, p-value = 4.786e-05")
+dev.off()
 
-### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
-t.test(mean.reu.col, mu=mean(node.depths[mau.col,"Median_age"]))
-
+### test the bootstrapped mauritian colonisation node ages against the mean age of in situ speciation nodes
+t.test(mean.mau.insitu, mu=mean(node.depths[mau.col,"Median_age"]))
