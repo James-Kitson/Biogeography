@@ -16,7 +16,7 @@ library(plyr)
 my.tree<-read.nexus("Data/resolved_tree.nex")
 
 ### check this has worked
-is.binary.tree(my.tree)
+#is.binary.tree(my.tree)
 
 ########################################################################################################
 ######################## Plot the tree with node ages ############################
