@@ -1,14 +1,68 @@
 ---
 title: "Comparing node ages"
+subtitle: "test"
 author: '**James Kitson**'
 
 output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+require(knitr)
+knitr::opts_chunk$set(echo = FALSE,
+                      warning=FALSE,
+                      message=FALSE,
+                      dev = 'pdf',
+                      fig.align='center')
 ```
 
 #Outline
-
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages.
+
+#Biogeographic analyses
+
+#Statistical analysis of node ages
+For each of the statistical analyses outlined in the main manuscript we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, insitu speciation nodes, comparison of nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled many times **(figure out inline parameter reporting)**
+
+###Statistics from the Bayesian Binary Markov analysis in RASP
+```{r echo=FALSE}
+read_chunk('RASPBBM_node_age_stats.R')
+```
+```{r first}
+<<processdata1>>
+```
+
+###Comparing the age of flightloss nodes to nodes without flightloss
+```{r second}
+<<BBMflightloss>>
+<<BBMflightlossttest>>
+```
+  
+```{r third}
+<<processdata2>>
+```
+
+###Comparing the average node age on Reunion to Muaritius
+```{r fourth}
+<<BBMMauvsReu>>
+<<BBMMauvsReuttest>>
+```
+
+```{r fifth}
+<<processdata3>>
+```
+
+###Comparing the age of insitu speciation events on Reunion to colonisation events
+```{r sixth}
+<<BBMinsituReu>>
+<<BBMinsituReuttest>>
+```
+
+```{r seventh}
+<<processdata4>>
+```
+
+###Comparing the age of insitu speciation events on Mauritius to colonisation events
+```{r eighth}
+<<BBMinsituMau>>
+<<BBMinsituMauttest>>
+```
