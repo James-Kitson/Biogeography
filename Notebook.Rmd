@@ -9,3 +9,6 @@ output: pdf_document
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+#Outline
+
+The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages.
