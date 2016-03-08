@@ -2,8 +2,8 @@
 title: "Comparing node ages"
 subtitle: "test"
 author: '**James Kitson**'
-
 output: pdf_document
+toc: true
 ---
 
 ```{r setup, include=FALSE}
@@ -14,24 +14,25 @@ knitr::opts_chunk$set(echo = FALSE,
                       dev = 'pdf',
                       fig.align='center')
 ```
-
+\newpage
 #Outline
-The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages.
+The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered Notebook.Rmd file for links to the relevant scripts.
 
 #Biogeographic analyses
 
-#Statistical analysis of node ages
-For each of the statistical analyses outlined in the main manuscript we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, insitu speciation nodes, comparison of nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled many times **(figure out inline parameter reporting)**
-
-###Statistics from the Bayesian Binary Markov analysis in RASP
+\newpage
 ```{r echo=FALSE}
 read_chunk('RASPBBM_node_age_stats.R')
 ```
 ```{r first}
 <<processdata1>>
 ```
+#Statistical analysis of node ages
+For each of the statistical analyses outlined in the main manuscript we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, *in situ* speciation nodes, comparison of nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times.
 
-###Comparing the age of flightloss nodes to nodes without flightloss
+#Statistics from the Bayesian Binary Markov analysis in RASP.
+
+##Comparing the age of flightloss nodes to nodes without flightloss
 ```{r second}
 <<BBMflightloss>>
 <<BBMflightlossttest>>
@@ -41,7 +42,7 @@ read_chunk('RASPBBM_node_age_stats.R')
 <<processdata2>>
 ```
 
-###Comparing the average node age on Reunion to Muaritius
+##Comparing the average node age on Reunion to Muaritius
 ```{r fourth}
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
@@ -51,7 +52,7 @@ read_chunk('RASPBBM_node_age_stats.R')
 <<processdata3>>
 ```
 
-###Comparing the age of insitu speciation events on Reunion to colonisation events
+##Comparing the age of *in situ* speciation events on Reunion to colonisation events
 ```{r sixth}
 <<BBMinsituReu>>
 <<BBMinsituReuttest>>
@@ -61,8 +62,52 @@ read_chunk('RASPBBM_node_age_stats.R')
 <<processdata4>>
 ```
 
-###Comparing the age of insitu speciation events on Mauritius to colonisation events
+##Comparing the age of *in situ* speciation events on Mauritius to colonisation events
 ```{r eighth}
 <<BBMinsituMau>>
 <<BBMinsituMauttest>>
 ```
+\newpage
+
+#Statistics from the Maximum Likelihood analyses in R.
+```{r echo=FALSE}
+read_chunk('RML_node_age_stats.R')
+```
+```{r ninth}
+<<processdata5>>
+```
+
+##Comparing the age of flightloss nodes to nodes without flightloss
+```{r tenth}
+<<RMLflightloss>>
+<<RMLflightlossttest>>
+```
+  
+```{r eleventh}
+<<processdata6>>
+```
+
+##Comparing the average node age on Reunion to Muaritius
+```{r twelfth}
+<<RMLMauvsReu>>
+<<RMLMauvsReuttest>>
+```
+
+```{r thirteenth}
+<<processdata7>>
+```
+
+##Comparing the age of *in situ* speciation events on Reunion to colonisation events
+```{r fourteenth}
+<<RMLinsituReu>>
+<<RMLinsituReuttest>>
+```
+
+```{r fifteenth}
+<<processdata8>>
+```
+
+##Comparing the age of *in situ* speciation events on Mauritius to colonisation events
+```{r sixteenth}
+<<RMLinsituMau>>
+<<RMLinsituMauttest>>
