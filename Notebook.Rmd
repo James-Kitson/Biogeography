@@ -32,7 +32,7 @@ For each of the statistical analyses outlined in the main manuscript we have tak
 
 #Statistics from the Bayesian Binary Markov analysis in RASP.
 
-##Comparing the age of flightloss nodes to nodes without flightloss
+##Comparing the age of flight loss nodes to nodes without flight loss
 ```{r second}
 <<BBMflightloss>>
 <<BBMflightlossttest>>
@@ -77,7 +77,7 @@ read_chunk('RML_node_age_stats.R')
 <<processdata5>>
 ```
 
-##Comparing the age of flightloss nodes to nodes without flightloss
+##Comparing the age of flight loss nodes to nodes without flight loss
 ```{r tenth}
 <<RMLflightloss>>
 <<RMLflightlossttest>>
