@@ -9,8 +9,6 @@ rm(list=ls())
 library(ape)
 library(phytools)
 library(plyr)
-library(RColorBrewer)
-library(BioGeoBEARS)
 
 ### read in the tree
 my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
