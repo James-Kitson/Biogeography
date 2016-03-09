@@ -40,11 +40,9 @@ tree.resolve<-read.nexus("Data/resolved_tree.nex")
 
 ### give zero length branches an arbitrarily short length
 tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
-### check it has worked
-tree.resolve$edge.length
 
 ### read in the island data
-islands<-read.csv("DATA/dist_ultra.csv", header=FALSE)
+islands<-read.csv("Data/dist_ultra.csv", header=FALSE)
 colnames(islands)<-c("sample","island")
 
 ### calculate the ML character reconstruction
@@ -67,13 +65,12 @@ r.col<-c("#0000ff",
 
 ### the next line uses match to perform the same function as vlookup in excel
 tree.resolve$tip.label <- (name$Alt_label[match(tree.resolve$tip.label,name$Name)])
-str(tree.resolve$tip.label)
 
 ## @ knitr MLtreeplot
 
 ### plot the tree with the character reconstruction mapped
 #pdf(file="Diagrams/ML_biogeography.pdf", 30, 30)
-plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=2)
+plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=1)
 ### add biogeographic piecharts
 nodelabels(pie = Cratopus_anc$lik.anc, piecol = r.col, cex = 0.75)
 ### add bayesian support values
@@ -99,7 +96,7 @@ legend(x=0.005, y=25,
                 "Seychelles",
                 "n/s"),
        fill=r.col,
-       cex=1.5)
+       cex=1)
 
 #### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
