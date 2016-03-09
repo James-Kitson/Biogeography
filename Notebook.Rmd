@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = FALSE,
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
 
 #Biogeographic analyses
+##RASP BBM
 ```{r echo=FALSE}
 read_chunk('R_scripts/BBM_biogeography.R')
 ```
@@ -27,6 +28,7 @@ read_chunk('R_scripts/BBM_biogeography.R')
 <<BBMtreeplot>>
 ```
 \newpage
+##R Maximum Likelihood
 ```{r echo=FALSE}
 read_chunk('R_scripts/ML_biogeography.R')
 ```
