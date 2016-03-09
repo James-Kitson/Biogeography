@@ -30,7 +30,7 @@ name<-read.csv("Data/all_names.csv")
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 
 ###Get the biogeographic reconstruvtion from RASP BBM
-Cratopus_anc<-read.csv("Data/RASP_anc.csv", row.names=1, header=TRUE)
+Cratopus_anc<-read.csv("Data/RASP_BBManc.csv", row.names=1, header=TRUE)
 
 ########################################################################################################
 ######################## Process the biogeographic output and plot the tree ############################
