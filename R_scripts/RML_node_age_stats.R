@@ -129,22 +129,22 @@ reu.insitu<-c(56,36,35,34)
 mean.reu.col2<-numeric(iter)
 
 ### loop across the colonisation node ages to get a vector of mean node ages where the sample size is the same as the in situ nodes
-### done this way as there are more colonisation than insitu nodes
+### done this way as there are more colonisation than in situ nodes
 for(i in 1:iter){
   mean.reu.col2[i]<-mean(sample(reu.col.age$Median_age, size =length(reu.insitu),
                                replace=TRUE))
 }
 
-### plot a histogram and label the mean insitu speciation age
+### plot a histogram and label the mean in situ speciation age
 ## @knitr RMLinsituReu
 #png(filename="Diagrams/insituReu_vs_Reucol_ML_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=20,
-                main="Histogram of reunion insitu speciation ages",
+                main="Histogram of reunion in situ speciation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[reu.insitu,"Median_age"]),
        col="red")
-#title(sub="reunion insitu speciation nodes are significantly younger than colonisation nodes, t = 12.4071, df = 999, p-value < 2.2e-16")
+#title(sub="reunion in situ speciation nodes are significantly younger than colonisation nodes, t = 12.4071, df = 999, p-value < 2.2e-16")
 #dev.off()
 
 ### test the bootstrapped reunion colonisation node ages against the mean age of in situ speciation nodes
@@ -160,7 +160,7 @@ t.test(mean.reu.col, mu=mean(node.depths[reu.insitu,"Median_age"]))
 ### identify in situ nodes for Mauritius
 mau.insitu<-c(2,3,4,5,7,8,10,16,11,12,14,37,38,40,41)
 
-### create a df of just the insitu Mauritian speciation nodes
+### create a df of just the in situ Mauritian speciation nodes
 mau.insitu.age<-node.depths[mau.insitu,]
 
 ### create a vector to fill with bootstrap values
@@ -172,11 +172,11 @@ for(i in 1:iter){
                                replace=TRUE))
 }
 
-### plot a histogram and label the mean insitu speciation node age
+### plot a histogram and label the mean in situ speciation node age
 ## @knitr RMLinsituMau
 #png(filename="Diagrams/insituMau_vs_Maucol_ML_biogeography", width=1000)
 node.samp<-hist(mean.mau.insitu,breaks=100,
-                main="Histogram of mauritian insitu speciation ages",
+                main="Histogram of mauritian in situ speciation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[mau.col,"Median_age"]),
