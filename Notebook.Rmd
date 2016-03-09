@@ -22,9 +22,9 @@ The purpose of this Rmarkdown document is to allow users to follow our statistic
 
 \newpage
 ```{r echo=FALSE}
-read_chunk('RASPBBM_node_age_stats.R')
+read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ```
-```{r first}
+```{r}
 <<processdata1>>
 ```
 #Statistical analysis of node ages
@@ -33,39 +33,39 @@ For each of the statistical analyses outlined in the main manuscript we have tak
 #Statistics from the Bayesian Binary Markov analysis in RASP.
 
 ##Comparing the age of flight loss nodes to nodes without flight loss
-```{r second}
+```{r}
 <<BBMflightloss>>
 <<BBMflightlossttest>>
 ```
   
-```{r third}
+```{r}
 <<processdata2>>
 ```
 
 ##Comparing the average node age on Reunion to Muaritius
-```{r fourth}
+```{r}
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
 ```
 
-```{r fifth}
+```{r}
 <<processdata3>>
 ```
 
 ##Comparing the age of *in situ* speciation events on Reunion to colonisation events
-```{r sixth}
+```{r}
 <<BBMinsituReu>>
 <<BBMinsituReuttest>>
 ```
 
-```{r seventh}
+```{r}
 <<processdata4>>
 ```
 
 ##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 
-```{r eighth}
+```{r}
 <<BBMinsituMau>>
 <<BBMinsituMauttest>>
 ```
@@ -73,44 +73,44 @@ This is reversed relative to the test performed on Reunion nodes as there are ma
 
 #Statistics from the Maximum Likelihood analyses in R.
 ```{r echo=FALSE}
-read_chunk('RML_node_age_stats.R')
+read_chunk('R_scripts/RML_node_age_stats.R')
 ```
-```{r ninth}
+```{r}
 <<processdata5>>
 ```
 
 ##Comparing the age of flight loss nodes to nodes without flight loss
-```{r tenth}
+```{r}
 <<RMLflightloss>>
 <<RMLflightlossttest>>
 ```
   
-```{r eleventh}
+```{r}
 <<processdata6>>
 ```
 
 ##Comparing the average node age on Reunion to Muaritius
-```{r twelfth}
+```{r}
 <<RMLMauvsReu>>
 <<RMLMauvsReuttest>>
 ```
 
-```{r thirteenth}
+```{r}
 <<processdata7>>
 ```
 
 ##Comparing the age of *in situ* speciation events on Reunion to colonisation events
-```{r fourteenth}
+```{r}
 <<RMLinsituReu>>
 <<RMLinsituReuttest>>
 ```
 
-```{r fifteenth}
+```{r}
 <<processdata8>>
 ```
 
 ##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
-```{r sixteenth}
+```{r}
 <<RMLinsituMau>>
 <<RMLinsituMauttest>>
