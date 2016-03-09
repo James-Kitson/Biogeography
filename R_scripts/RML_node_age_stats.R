@@ -181,7 +181,6 @@ node.samp<-hist(mean.mau.insitu,breaks=100,
                 xlim=c(0,5))
 abline(v=mean(node.depths[mau.col,"Median_age"]),
        col="red")
-#title(sub="Mauritian insitu speciation nodes are significantly older than colonisation nodes, t = -4.0838, df = 999, p-value = 4.786e-05")
 #dev.off()
 
 ### test the bootstrapped mauritian colonisation node ages against the mean age of in situ speciation nodes
