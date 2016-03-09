@@ -62,7 +62,9 @@ For each of the statistical analyses outlined in the main manuscript we have tak
 <<processdata4>>
 ```
 
-##Comparing the age of *in situ* speciation events on Mauritius to colonisation events
+##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
+This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
+
 ```{r eighth}
 <<BBMinsituMau>>
 <<BBMinsituMauttest>>
@@ -107,7 +109,8 @@ read_chunk('RML_node_age_stats.R')
 <<processdata8>>
 ```
 
-##Comparing the age of *in situ* speciation events on Mauritius to colonisation events
+##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
+This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 ```{r sixteenth}
 <<RMLinsituMau>>
 <<RMLinsituMauttest>>
