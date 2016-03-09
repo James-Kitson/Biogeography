@@ -73,7 +73,7 @@ r.col<-c("#0000ff",
 
 ### plot the tree with the character reconstruction mapped
 #pdf(file=paste(out,"RASpBBM_biogeography.pdf",sep=""), 30, 30)
-plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=2)
+plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=1)
 nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
 ### add bayesian support values
 nodelabels(my.tree$node.label,adj=c(2,2),frame="none",
@@ -97,7 +97,7 @@ legend(x=0.005, y=25,
                 "Seychelles",
                 "n/s"),
        fill=r.col,
-       cex=1.5)
+       cex=1)
 
 ### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
