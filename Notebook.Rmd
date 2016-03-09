@@ -19,7 +19,21 @@ knitr::opts_chunk$set(echo = FALSE,
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
 
 #Biogeographic analyses
-
+```{r echo=FALSE}
+read_chunk('R_scripts/BBM_biogeography.R')
+```
+```{r}
+<<BBMtreeprocess>>
+<<BBMtreeplot>>
+```
+\newpage
+```{r echo=FALSE}
+read_chunk('R_scripts/ML_biogeography.R')
+```
+```{r}
+<<MLtreeprocess>>
+<<MLtreeplot>>
+```
 \newpage
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
@@ -37,31 +51,28 @@ For each of the statistical analyses outlined in the main manuscript we have tak
 <<BBMflightloss>>
 <<BBMflightlossttest>>
 ```
-  
+\newpage
 ```{r}
 <<processdata2>>
 ```
-
 ##Comparing the average node age on Reunion to Muaritius
 ```{r}
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
 ```
-
+\newpage
 ```{r}
 <<processdata3>>
 ```
-
 ##Comparing the age of *in situ* speciation events on Reunion to colonisation events
 ```{r}
 <<BBMinsituReu>>
 <<BBMinsituReuttest>>
 ```
-
+\newpage
 ```{r}
 <<processdata4>>
 ```
-
 ##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 
@@ -70,7 +81,6 @@ This is reversed relative to the test performed on Reunion nodes as there are ma
 <<BBMinsituMauttest>>
 ```
 \newpage
-
 #Statistics from the Maximum Likelihood analyses in R.
 ```{r echo=FALSE}
 read_chunk('R_scripts/RML_node_age_stats.R')
@@ -78,37 +88,33 @@ read_chunk('R_scripts/RML_node_age_stats.R')
 ```{r}
 <<processdata5>>
 ```
-
 ##Comparing the age of flight loss nodes to nodes without flight loss
 ```{r}
 <<RMLflightloss>>
 <<RMLflightlossttest>>
 ```
-  
+\newpage  
 ```{r}
 <<processdata6>>
 ```
-
 ##Comparing the average node age on Reunion to Muaritius
 ```{r}
 <<RMLMauvsReu>>
 <<RMLMauvsReuttest>>
 ```
-
+\newpage
 ```{r}
 <<processdata7>>
 ```
-
 ##Comparing the age of *in situ* speciation events on Reunion to colonisation events
 ```{r}
 <<RMLinsituReu>>
 <<RMLinsituReuttest>>
 ```
-
+\newpage
 ```{r}
 <<processdata8>>
 ```
-
 ##Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 ```{r}
