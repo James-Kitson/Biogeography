@@ -2,6 +2,8 @@
 ######################## Script for plotting Cratopus trees ############################
 ########################################################################################################
 
+## @knitr BBMtreeprocess
+
 ### Clear the workspace
 rm(list=ls())
 
@@ -67,8 +69,10 @@ r.col<-c("#0000ff",
          "#e0ffff",
          "#000000")
 
+## @knitr BBMtreeplot
+
 ### plot the tree with the character reconstruction mapped
-pdf(file=paste(out,"RASpBBM_biogeography.pdf",sep=""), 30, 30)
+#pdf(file=paste(out,"RASpBBM_biogeography.pdf",sep=""), 30, 30)
 plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=2)
 nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
 ### add bayesian support values
@@ -107,4 +111,4 @@ axis(side=1,
      padj=1,
      at=seq(-offset, max(nodeHeights(my.tree)), by=(max(nodeHeights(my.tree))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
-dev.off()
+#dev.off()

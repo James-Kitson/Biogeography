@@ -2,6 +2,8 @@
 ######################## Script for plotting Cratopus trees ############################
 ########################################################################################################
 
+## @knitr MLtreeprocess
+
 ### Clear the workspace
 rm(list=ls())
 
@@ -67,8 +69,10 @@ r.col<-c("#0000ff",
 tree.resolve$tip.label <- (name$Alt_label[match(tree.resolve$tip.label,name$Name)])
 str(tree.resolve$tip.label)
 
+## @ knitr MLtreeplot
+
 ### plot the tree with the character reconstruction mapped
-pdf(file="Diagrams/ML_biogeography.pdf", 30, 30)
+#pdf(file="Diagrams/ML_biogeography.pdf", 30, 30)
 plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=2)
 ### add biogeographic piecharts
 nodelabels(pie = Cratopus_anc$lik.anc, piecol = r.col, cex = 0.75)
@@ -110,4 +114,4 @@ axis(side=1,
      at=seq(-offset, max(nodeHeights(tree.resolve)), by=(max(nodeHeights(tree.resolve))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
 
-dev.off()
+#dev.off()
