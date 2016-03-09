@@ -64,14 +64,14 @@ for(i in 1:iter){
 }
 
 ### plot a histogram and label the mean flightloss node age
-png(filename="Diagrams/flightloss_vs_flight_BBM_biogeography", width=1000)
+#png(filename="Diagrams/flightloss_vs_flight_BBM_biogeography", width=1000)
 node.samp<-hist(mean.fl,breaks=100,
                 main="Histogram of flightloss vs normal node ages",
                 xlab="Mean nodal age",
                 xlim=c(0,4))
 abline(v=mean(node.depths[fl.loss,"Median_age"]),
        col="red")
-dev.off()
+#dev.off()
 
 ## @knitr BBMflightlossttest
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
@@ -101,7 +101,7 @@ for(i in 1:iter){
 
 ### plot a histogram and label the mean mauritian colonisation age
 ## @knitr BBMMauvsReu
-png(filename="Diagrams/Maucol_vs_Reucol_BBM_biogeography", width=1000)
+#png(filename="Diagrams/Maucol_vs_Reucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=100,
                 main="Histogram of mauritian vs reunion colonisation ages",
                 xlab="Mean nodal age",
@@ -109,7 +109,7 @@ node.samp<-hist(mean.reu.col,breaks=100,
 abline(v=mean(node.depths[mau.col,"Median_age"]),
        col="red")
 #title(sub="Mauritian colonisation nodes are significantly younger than reunion colonisations, t = 54.0667, df = 999, p-value < 2.2e-16")
-dev.off()
+#dev.off()
 
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 ## @knitr BBMMauvsReuttest
@@ -136,7 +136,7 @@ for(i in 1:iter){
 
 ### plot a histogram and label the mean in situ speciation age
 ## @knitr BBMinsituReu
-png(filename="Diagrams/in situReu_vs_Reucol_BBM_biogeography", width=1000)
+#png(filename="Diagrams/in situReu_vs_Reucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=20,
                 main="Histogram of reunion in situ speciation ages",
                 xlab="Mean nodal age",
@@ -144,7 +144,7 @@ node.samp<-hist(mean.reu.col,breaks=20,
 abline(v=mean(node.depths[reu.insitu,"Median_age"]),
        col="red")
 #title(sub="reunion in situ speciation nodes are significantly younger than colonisation nodes, t = 3.2722, df = 999, p-value = 0.001104")
-dev.off()
+#dev.off()
 
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 ## @knitr BBMinsituReuttest
@@ -157,7 +157,7 @@ t.test(mean.reu.col, mu=mean(node.depths[reu.insitu,"Median_age"]))
 ## @knitr processdata4
 
 ### identify in situ nodes for Mauritius
-mau.insitu<-c(36,35,33,32,4,3,2,5,6,8,9,11)
+mau.insitu<-c(2,3,4,5,6,8,9,11,14,32,33,35,36)
 
 ### create a df of just the reunion colonistion nodes
 mau.insitu.age<-node.depths[-mau.insitu,]
@@ -173,7 +173,7 @@ for(i in 1:iter){
 
 ### plot a histogram and label the mean in situ speciation node age
 ## @knitr BBMinsituMau
-png(filename="Diagrams/in situMau_vs_Maucol_BBM_biogeography", width=1000)
+#png(filename="Diagrams/in situMau_vs_Maucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.mau.insitu,breaks=100,
                 main="Histogram of mauritian in situ speciation ages",
                 xlab="Mean nodal age",
@@ -181,7 +181,7 @@ node.samp<-hist(mean.mau.insitu,breaks=100,
 abline(v=mean(node.depths[mau.col,"Median_age"]),
        col="red")
 #title(sub="Mauritian in situ speciation nodes are significantly older than colonisation nodes, t = -4.0838, df = 999, p-value = 4.786e-05")
-dev.off()
+#dev.off()
 
 ### test the bootstrapped mauritian colonisation node ages against the mean age of in situ speciation nodes
 ## @knitr BBMinsituMauttest
