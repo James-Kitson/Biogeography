@@ -22,7 +22,7 @@ The purpose of this Rmarkdown document is to allow users to follow our statistic
 ```{r echo=FALSE}
 read_chunk('R_scripts/BBM_biogeography.R')
 ```
-```{r}
+```{r fig.width=7, fig.height=10, message=F, warning=F}
 <<BBMtreeprocess>>
 <<BBMtreeplot>>
 ```
@@ -30,7 +30,7 @@ read_chunk('R_scripts/BBM_biogeography.R')
 ```{r echo=FALSE}
 read_chunk('R_scripts/ML_biogeography.R')
 ```
-```{r}
+```{r fig.width=7, fig.height=10, message=F, warning=F}
 <<MLtreeprocess>>
 <<MLtreeplot>>
 ```
