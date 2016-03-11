@@ -158,7 +158,7 @@ t.test(mean.reu.col, mu=mean(node.depths[reu.insitu,"Median_age"]))
 ## @knitr processdata8
 
 ### identify in situ nodes for Mauritius
-mau.insitu<-c(2,3,4,5,7,8,10,16,11,12,14,37,38,40,41)
+mau.insitu<-c(2,3,4,5,6,7,10,16,11,12,14,37,38,40,41)
 
 ### create a df of just the in situ Mauritian speciation nodes
 mau.insitu.age<-node.depths[mau.insitu,]
