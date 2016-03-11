@@ -160,7 +160,7 @@ t.test(mean.reu.col, mu=mean(node.depths[reu.insitu,"Median_age"]))
 mau.insitu<-c(2,3,4,5,6,8,9,11,14,32,33,35,36)
 
 ### create a df of just the reunion colonistion nodes
-mau.insitu.age<-node.depths[-mau.insitu,]
+mau.insitu.age<-node.depths[mau.insitu,]
 
 ### create a vector to fill with bootstrap values
 mean.mau.insitu<-numeric(iter)
