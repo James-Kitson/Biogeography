@@ -7,10 +7,6 @@
 ### Clear the workspace
 rm(list=ls())
 
-### set working directory ####
-setwd("~/Documents/Projects/Cratopus project/R analyses/Biogeography")
-out<-paste(getwd(),"/Diagrams/",sep="")
-
 ### open APE
 library(ape)
 library(phytools)
