@@ -138,7 +138,7 @@ for(i in 1:iter){
 ## @knitr BBMinsituReu
 #png(filename="Diagrams/in situReu_vs_Reucol_BBM_biogeography", width=1000)
 node.samp<-hist(mean.reu.col,breaks=20,
-                main="Histogram of reunion in situ speciation ages",
+                main="Histogram of reunion colonisation ages",
                 xlab="Mean nodal age",
                 xlim=c(0,5))
 abline(v=mean(node.depths[reu.insitu,"Median_age"]),
