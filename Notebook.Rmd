@@ -57,7 +57,7 @@ For each of the statistical analyses outlined in the main manuscript we have tak
 ```{r}
 <<processdata2>>
 ```
-##Comparing the average node age on Reunion to Muaritius
+##Comparing the average node age on Reunion to Mauritius
 ```{r}
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
@@ -99,7 +99,7 @@ read_chunk('R_scripts/RML_node_age_stats.R')
 ```{r}
 <<processdata6>>
 ```
-##Comparing the average node age on Reunion to Muaritius
+##Comparing the average node age on Reunion to Mauritius
 ```{r}
 <<RMLMauvsReu>>
 <<RMLMauvsReuttest>>
