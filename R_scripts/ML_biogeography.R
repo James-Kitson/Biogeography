@@ -13,7 +13,7 @@ library(phytools)
 library(plyr)
 
 ### read in the tree
-my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/trees/All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
@@ -36,7 +36,7 @@ tree.resolve.out<-multi2di(my.tree, random=TRUE)
 #write.nexus(tree.resolve.out, file = "Data/resolved_tree.nex")
 
 ### read in the resolved tree
-tree.resolve<-read.nexus("Data/resolved_tree.nex")
+tree.resolve<-read.nexus("Data/trees/resolved_tree.nex")
 
 ### give zero length branches an arbitrarily short length
 tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
