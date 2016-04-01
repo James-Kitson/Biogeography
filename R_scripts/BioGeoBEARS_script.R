@@ -45,9 +45,8 @@ calc_loglike_sp = compiler::cmpfun(calc_loglike_sp_prebyte)    # crucial to fix 
 calc_independent_likelihoods_on_each_branch = compiler::cmpfun(calc_independent_likelihoods_on_each_branch_prebyte)
 
 #######################################################
-### read in the MrBayes Cratopus tree
-my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
-my.tree<-my.trees[[1]]
+### read in the MCC Cratopus tree from tree annotator
+my.tree<-read.nexus("Data/trees/Cratopus_MCC_tree.nex")
 
 ### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
 HPD<-read.csv("Data/bipartition_ages.csv")
@@ -57,19 +56,6 @@ name<-read.csv("Data/all_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
-
-### resolve polytomies
-tree.resolve.out<-multi2di(my.tree, random=TRUE)
-
-### write the tree to an ouptut file. The polytomies are resolved randomly so you need to write out a file and use that in future
-#write.nexus(tree.resolve.out, file = "Data/resolved_tree.nex")
-
-### read in the resolved tree
-tree.resolve<-read.nexus("Data/resolved_tree.nex")
-
-### give zero length branches an arbitrarily short length that is higher than the min branch length for BioGeoBEARS
-### this prevents BioGeoBEARS from interpreting the ultra short branch as a direct ancestor.
-tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.00001,tree.resolve$edge.length)
 
 #######################################################
 # Phylogeny file notes from BioGeoBEARS
