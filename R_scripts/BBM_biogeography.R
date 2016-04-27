@@ -11,9 +11,10 @@ rm(list=ls())
 library(ape)
 library(phytools)
 library(plyr)
+library(strap)
 
 ### read in the tree
-my.trees<-read.nexus("Data/All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/trees/concatenated_loci//All_dating_mcorrected.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
