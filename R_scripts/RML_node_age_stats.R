@@ -13,7 +13,7 @@ library(phytools)
 library(plyr)
 
 ### read in the trees
-my.tree<-read.nexus("Data/resolved_tree.nex")
+my.tree<-read.nexus("Data/trees/concatenated_loci/resolved_tree.nex")
 
 ### check this has worked
 #is.binary.tree(my.tree)
