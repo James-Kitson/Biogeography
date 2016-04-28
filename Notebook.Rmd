@@ -23,15 +23,6 @@ knitr::opts_chunk$set(echo = FALSE,
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
 
 \newpage
-
-\eject \pdfpagewidth=20in \pdfpageheight=100in
-
-#This is going to be a big page with a tree of all my COII samples
-
-\newpage
-
-\eject \pdfpagewidth=210mm \pdfpageheight=297mm
-
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ```
@@ -50,6 +41,12 @@ read_chunk('R_scripts/BBM_biogeography.R')
 <<BBMtreeprocess>>
 <<BBMtreeplot>>
 ```
+\newpage
+From the previous plot we can group nodes as indicated in the legend.
+```{r fig.width=7, fig.height=10, message=F, warning=F}
+<<BBMstatsnodes>>
+```
+
 \newpage
 
 ##Comparing the age of flight loss nodes to nodes without flight loss
