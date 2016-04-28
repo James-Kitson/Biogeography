@@ -66,6 +66,16 @@ r.col<-c("#0000ff",
          "#e0ffff",
          "#000000")
 
+### define sets of nodes that will be plotted now and tested statistically later.
+### Colonisations of Reunion from Mauritius
+Reu.col<-c(65,68,73,74,75,92,95,99)
+### internal speciation events on Reunion
+Reu.insitu<-c(76,77,78,87,88,89,96,109)
+### Colonisations of Mauritius from Reunion
+Mau.col<-c(86,97,110)
+### internal speciation event on Mauritius
+Mau.insitu<-c(60,61,62,63,64,66,67,69,72,76,87,88,89,90,91,93,94,98)
+
 ## @knitr BBMtreeplot
 
 ### plot the tree with the character reconstruction mapped
@@ -75,6 +85,7 @@ nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.75)
 nodelabels(my.tree$node.label,adj=c(1.5,1.5),frame="none",
             col=ifelse(my.tree$node.label>0.9,"red",
                       ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=0.5)
+
 legend(x=0.01, y=10,
        legend=c("Madagascar",
                 "Reunion",
@@ -105,38 +116,45 @@ axis(side=1,
      at=seq(-offset, max(nodeHeights(my.tree)), by=(max(nodeHeights(my.tree))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
 
+## @knitr BBMstatsnodes
+
+### plot the tree with the character reconstruction mapped
+plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=0.5)
+
+# show the nodes in each group
+nodelabels(node=as.numeric(Reu.col), pch=22, bg=NULL, cex=3)
+nodelabels(node=as.numeric(Mau.col), pch=15, cex=3)
+nodelabels(node=as.numeric(Mau.insitu), pch=21, bg="blue", cex=2)
+nodelabels(node=as.numeric(Reu.insitu), pch=21, bg="red", cex=2)
+### add bayesian support values
+nodelabels(my.tree$node.label,adj=c(1.5,1.5),frame="none",
+           col=ifelse(my.tree$node.label>0.9,"red",
+                      ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=0.5)
+
+legend(0.001,6, title="Legend",legend=c("Colonisation Mau -> Reu", "Colonisation Reu -> Mau", "Mauritius insitu speciation", "Reunion insitu speciation"),
+       pch=c(22,15,21,21), pt.bg=c(NA,NA,"blue","red"), cex=0.5)
+### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
+### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
+### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
+### the oldest value on the tree.
+offset<-(round_any(max(HPD$Median),0.5)-max(HPD$Median))*(max(nodeHeights(my.tree))/max(HPD$Median))
+
+## put on a the correct axis
+axis(side=1,
+     cex.axis=1,
+     padj=1,
+     at=seq(-offset, max(nodeHeights(my.tree)), by=(max(nodeHeights(my.tree))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
+     labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+
 ## @ knitr dumpchunk
 ######################################################################################################################################
 ###################### Plot the tree to the output folder using a pdf dev #######################################
 ######################################################################################################################################
 
 ### plot the tree with the character reconstruction mapped
-#pdf(file=paste(out,"BBM_biogeography.pdf",sep=""), 30, 30)
+#pdf(file="Diagrams/BBM_biogeography_nodes.pdf", 30, 30)
 #plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=2)
-#nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.5)
-### add bayesian support values
-#nodelabels(my.tree$node.label,adj=c(2,2),frame="none",
-#           col=ifelse(my.tree$node.label>0.9,"red",
-#                      ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=1)
-### add node numbers
-#my.tree$node.number<-seq(1, length(my.tree$node.label),1)
-#nodelabels(my.tree$node.number,adj=c(3.2,3.2),frame="none",col="black")
-#legend(x=0.005, y=25,
-#       legend=c("Madagascar",
-#                "Reunion",
-#                "Mauritius",
-#                "Rodrigues",
-#                "Europa",
-#                "Grande Glorieuse",
-#                "Moheli",
-#                "Anjouan",
-#                "Grande Comore",
-#                "Juan de Nova",
-#                "Aldabra",
-#                "Seychelles",
-#                "n/s"),
-#       fill=r.col,
-#       cex=1.5)
+#nodelabels(frame = "none", adj=c(1,1))
 
 ### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
