@@ -21,32 +21,17 @@ knitr::opts_chunk$set(echo = FALSE,
 
 #Outline
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
+
 \newpage
-```{r echo=FALSE}
-read_chunk('R_scripts/No_Synch_Scripts/Supplementary_trees.R')
-<<processmegatree>>
-```
-\includepdf {Diagrams/tree_supp2.pdf}
+
+\eject \pdfpagewidth=20in \pdfpageheight=100in
+
+#This is going to be a big page with a tree of all my COII samples
+
 \newpage
-#Biogeographic analyses
-##RASP BBM
-```{r echo=FALSE}
-read_chunk('R_scripts/BBM_biogeography.R')
-```
-```{r fig.width=7, fig.height=10, message=F, warning=F}
-<<BBMtreeprocess>>
-<<BBMtreeplot>>
-```
-\newpage
-##R Maximum Likelihood
-```{r echo=FALSE}
-read_chunk('R_scripts/ML_biogeography.R')
-```
-```{r fig.width=7, fig.height=10, message=F, warning=F}
-<<MLtreeprocess>>
-<<MLtreeplot>>
-```
-\newpage
+
+\eject \pdfpagewidth=210mm \pdfpageheight=297mm
+
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ```
@@ -57,8 +42,24 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 For each of the statistical analyses outlined in the main manuscript we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, *in situ* speciation nodes, comparison of nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times.
 
 #Statistics from the Bayesian Binary Markov analysis in RASP.
+##RASP BBM
+```{r echo=FALSE}
+read_chunk('R_scripts/BBM_biogeography.R')
+```
+```{r fig.width=7, fig.height=10, message=F, warning=F}
+<<BBMtreeprocess>>
+<<BBMtreeplot>>
+```
+\newpage
 
 ##Comparing the age of flight loss nodes to nodes without flight loss
+
+```{r echo=FALSE}
+read_chunk('R_scripts/RASPBBM_node_age_stats.R')
+```
+```{r}
+<<processdata1>>
+```
 ```{r}
 <<BBMflightloss>>
 <<BBMflightlossttest>>
@@ -94,6 +95,16 @@ This is reversed relative to the test performed on Reunion nodes as there are ma
 ```
 \newpage
 #Statistics from the Maximum Likelihood analyses in R.
+##R Maximum Likelihood
+```{r echo=FALSE}
+read_chunk('R_scripts/ML_biogeography.R')
+```
+```{r fig.width=7, fig.height=10, message=F, warning=F}
+<<MLtreeprocess>>
+<<MLtreeplot>>
+```
+\newpage
+
 ```{r echo=FALSE}
 read_chunk('R_scripts/RML_node_age_stats.R')
 ```
