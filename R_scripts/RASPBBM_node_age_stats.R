@@ -18,9 +18,6 @@ my.trees<-read.nexus("Data/trees/concatenated_loci/All_dating_mcorrected.nex.con
 ### process the trees
 my.tree<-my.trees[[1]] ### raw outpout from MrBayes with polytomies
 
-### check this has worked
-#is.binary.tree(my.tree)
-
 ########################################################################################################
 
 ### Calculate the branch depths for each node (distance from tip) and the node number
@@ -38,19 +35,29 @@ node.depths$Median_age <- round((HPD$Median[match(node.depths$node.depths,HPD$Me
 node.depths$Median_high <- round((HPD$CredInt_Upper[match(node.depths$node.depths,HPD$Median_height)]),2)
 node.depths$Median_low <- round((HPD$CredInt_Lower[match(node.depths$node.depths,HPD$Median_height)]),2)
 
-### identify the numbers of flight loss nodes
-fl.loss<-c(52,45,34,7,29)
+########################################################################################################
 
-### create a df of just the non-flight loss nodes
-fl<-node.depths[-fl.loss,]
+### define node numbers for the groups of nodes we will test.
+### Colonisations of Reunion from Mauritius
+Reu.col<-c(65,68,73,74,75,92,95,99)
+### internal speciation events on Reunion
+Reu.insitu<-c(76,77,78,87,88,89,96,109)
+### Colonisations of Mauritius from Reunion
+Mau.col<-c(86,97,110)
+### internal speciation event on Mauritius
+Mau.insitu<-c(60,61,62,63,64,66,67,69,72,76,87,88,89,90,91,93,94,98)
+
+########################################################################################################
 
 ### set the number of bootstrap replicates
 iter<-1000
 
-
 ########################################################################################################
 #### testing age of flight loss nodes vs normal nodes
 ########################################################################################################
+
+### create a df of just the non-flight loss nodes
+fl<-node.depths[-fl.loss,]
 
 ### create a vector to fill with bootstrap values
 mean.fl<-numeric(iter)
