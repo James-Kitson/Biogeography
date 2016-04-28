@@ -1,7 +1,11 @@
 ---
 title: "Statistical Analyses for Kitson *et al.* 2016"
 author: '**James Kitson**'
-output: pdf_document
+header-includes:
+   - \usepackage[final]{pdfpages}
+output: 
+    pdf_document:
+      latex_engine: xelatex
 toc: true
 urlcolor: blue
 ---
@@ -14,10 +18,16 @@ knitr::opts_chunk$set(echo = FALSE,
                       dev = 'pdf',
                       fig.align='center')
 ```
-\newpage
+
 #Outline
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
-
+\newpage
+```{r echo=FALSE}
+read_chunk('R_scripts/No_Synch_Scripts/Supplementary_trees.R')
+<<processmegatree>>
+```
+\includepdf {Diagrams/tree_supp2.pdf}
+\newpage
 #Biogeographic analyses
 ##RASP BBM
 ```{r echo=FALSE}
