@@ -84,7 +84,7 @@ t.test(mean.fl, mu=mean(node.depths[fl.loss,"Median_age"]))
 ## @knitr processdata6
 
 ### identify the numbers of Mauritius colonisation nodes
-mau.col<-c(46,57,39)
+mau.col<-c(57)
 ### identify the numbers of Reunion colonisation nodes
 reu.col<-(c(2,39,18,17,15,13,43,44))
 
