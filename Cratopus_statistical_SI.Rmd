@@ -6,6 +6,7 @@ header-includes:
 output: 
     pdf_document:
       latex_engine: xelatex
+mainfont: Cambria
 toc: true
 urlcolor: blue
 ---
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 
 #Outline
-The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
+The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
 
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
@@ -152,7 +153,7 @@ This is reversed relative to the test performed on Reunion nodes as there are ma
 ```{r}
 <<RMLinsituMau>>
 ```
-As with the t-test for Reunion vs Mauritian colonisation agesthere is only one colonisation of Mauritius from Reunion inferred. so once again, a more appropriate test is the age all Mauritian *in situ* speciation nodes vs the age of the single Mauritian colonisation.
+As with the t-test for Reunion vs Mauritian colonisation agesthere is only one colonisation of Mauritius from Reunion inferred. So once again, a more appropriate test is the age of all Mauritian *in situ* speciation nodes vs the age of the single Mauritian colonisation.
 ```{r}
 <<RMLinsituMauttest>>
 ```
