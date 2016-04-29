@@ -68,13 +68,13 @@ r.col<-c("#0000ff",
 
 ### define sets of nodes that will be plotted now and tested statistically later.
 ### Colonisations of Reunion from Mauritius
-Reu.col<-c(65,68,73,74,75,92,95,99)
+Reu.col.nodes<-c(65,68,73,74,75,92,95,99)
 ### internal speciation events on Reunion
-Reu.insitu<-c(76,77,78,87,88,89,96,109)
+Reu.insitu.nodes<-c(76,77,78,87,88,89,96,109)
 ### Colonisations of Mauritius from Reunion
-Mau.col<-c(86,97,110)
+Mau.col.nodes<-c(86,97,110)
 ### internal speciation event on Mauritius
-Mau.insitu<-c(60,61,62,63,64,66,67,69,72,76,87,88,89,90,91,93,94,98)
+Mau.insitu.nodes<-c(60,61,62,63,64,66,67,69,72,76,87,88,89,90,91,93,94,98)
 
 ## @knitr BBMtreeplot
 
@@ -84,7 +84,7 @@ plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=0.5)
 nodelabels(pie=Cratopus_anc, piecol=r.col, cex=0.75)
 ### add bayesian support values
 nodelabels(my.tree$node.label,adj=c(1.5,1.5),frame="none",
-            col=ifelse(my.tree$node.label>0.9,"red",
+            col=ifelse(my.tree$node.label>=0.9,"red",
                       ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=0.5)
 
 legend(x=0.01, y=10,
@@ -116,6 +116,7 @@ axis(side=1,
      padj=1,
      at=seq(-offset, max(nodeHeights(my.tree)), by=(max(nodeHeights(my.tree))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+title(xlab="Time (millions of years)", cex=2)
 
 #dev.off()
 
@@ -126,17 +127,14 @@ axis(side=1,
 plot(my.tree, show.node.label=FALSE, label.offset=0.0, cex=0.5)
 
 # show the nodes in each group
-nodelabels(node=as.numeric(Reu.col), pch=22, bg=NULL, cex=3)
-nodelabels(node=as.numeric(Mau.col), pch=15, cex=3)
-nodelabels(node=as.numeric(Mau.insitu), pch=21, bg="blue", cex=2)
-nodelabels(node=as.numeric(Reu.insitu), pch=21, bg="red", cex=2)
-### add bayesian support values
-nodelabels(my.tree$node.label,adj=c(1.5,1.5),frame="none",
-           col=ifelse(my.tree$node.label>0.9,"red",
-                      ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=0.5)
+nodelabels(node=as.numeric(Reu.col.nodes), pch=22, bg="grey", cex=3)
+nodelabels(node=as.numeric(Mau.col.nodes), pch=22, bg="black", cex=3)
+nodelabels(node=as.numeric(Mau.insitu.nodes), pch=21, bg="blue", cex=2)
+nodelabels(node=as.numeric(Reu.insitu.nodes), pch=21, bg="red", cex=2)
 
 legend(0.001,6, title="Legend",legend=c("Colonisation Mau -> Reu", "Colonisation Reu -> Mau", "Mauritius insitu speciation", "Reunion insitu speciation"),
-       pch=c(22,15,21,21), pt.bg=c(NA,NA,"blue","red"), cex=0.5)
+       pch=c(22,22,21,21), pt.bg=c("grey","black","blue","red"), cex=0.5)
+
 ### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
 ### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
 ### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
@@ -149,5 +147,6 @@ axis(side=1,
      padj=1,
      at=seq(-offset, max(nodeHeights(my.tree)), by=(max(nodeHeights(my.tree))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+title(xlab="Time (millions of years)", cex=2)
 
 #dev.off()

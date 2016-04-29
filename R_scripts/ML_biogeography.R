@@ -70,6 +70,18 @@ tree.resolve$node.label<-round(tree.resolve$node.label,digits=2)
 ### the next line uses match to perform the same function as vlookup in excel
 tree.resolve$tip.label <- (name$Alt_label[match(tree.resolve$tip.label,name$Name)])
 
+### define node numbers for the groups of nodes we will test.
+### Nodes with Flight loss
+fl.loss.nodes<-c(73,92,97,115)
+### Colonisations of Reunion from Mauritius
+Reu.col.nodes<-c(71.73,75,76,77,97,101,102,104)
+### internal speciation events on Reunion
+Reu.insitu.nodes<-c(92,93,94,114)
+### Colonisations of Mauritius from Reunion
+Mau.col.nodes<-c(115)
+### internal speciation event on Mauritius
+Mau.insitu.nodes<-c(60,61,62,63,64,65,68,69,70,72,95,96,98,99,103)
+
 ## @ knitr MLtreeplot
 
 ### plot the tree with the character reconstruction mapped
@@ -78,7 +90,7 @@ plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=0.5)
 nodelabels(pie = Cratopus_anc$lik.anc, piecol = r.col, cex = 0.75)
 ### add bayesian support values
 nodelabels(tree.resolve$node.label,adj=c(1.5,1.5),frame="none",
-           col=ifelse(tree.resolve$node.label>0.9,"red",
+           col=ifelse(tree.resolve$node.label>=0.9,"red",
                       ifelse(tree.resolve$node.label>=0.5 & tree.resolve$node.label<0.9,"blue","#0000ff00")),cex=0.5)
 legend(x=0.01, y=10,
        legend=c("Madagascar",
@@ -109,3 +121,35 @@ axis(side=1,
      padj=1,
      at=seq(-offset, max(nodeHeights(tree.resolve)), by=(max(nodeHeights(tree.resolve))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
      labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+title(xlab="Time (millions of years)", cex=2)
+
+## @knitr RMLstatsnodes
+
+#pdf(file="Diagrams/RML_biogeography_selected_nodes.pdf", 30, 30)
+### plot the tree with the character reconstruction mapped
+plot(tree.resolve, show.node.label=FALSE, label.offset=0.0, cex=0.5)
+
+# show the nodes in each group
+nodelabels(node=as.numeric(Reu.col.nodes), pch=22, bg="grey", cex=3)
+nodelabels(node=as.numeric(Mau.col.nodes), pch=22, bg="black", cex=3)
+nodelabels(node=as.numeric(Mau.insitu.nodes), pch=21, bg="blue", cex=2)
+nodelabels(node=as.numeric(Reu.insitu.nodes), pch=21, bg="red", cex=2)
+
+legend(0.001,6, title="Legend",legend=c("Colonisation Mau -> Reu", "Colonisation Reu -> Mau", "Mauritius insitu speciation", "Reunion insitu speciation"),
+       pch=c(22,22,21,21), pt.bg=c("grey","black","blue","red"), cex=0.5)
+
+### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the
+### round ing up we do at the root end of the axis i.e. if we round 4.79 Mya to 5 Mya then we need to offset by minus ~0.21Ma of distance measured in
+### branch lengths. To do this we divide the root height by the root age and multiply by the difference between the oldest value on the axis and
+### the oldest value on the tree.
+offset<-(round_any(max(HPD$Median),0.5)-max(HPD$Median))*(max(nodeHeights(tree.resolve))/max(HPD$Median))
+
+## put on a the correct axis
+axis(side=1,
+     cex.axis=1,
+     padj=1,
+     at=seq(-offset, max(nodeHeights(tree.resolve)), by=(max(nodeHeights(tree.resolve))+offset)/(round_any(max(HPD$Median),0.5)/0.5)),
+     labels=seq(round_any(max(HPD$Median),0.5),0,by=-0.5))
+title(xlab="Time (millions of years)", cex=2)
+
+#dev.off()
