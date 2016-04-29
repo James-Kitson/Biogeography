@@ -22,7 +22,6 @@ knitr::opts_chunk$set(echo = FALSE,
 #Outline
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeogpahic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Notebook.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Notebook.Rmd) file for links to the relevant scripts.
 
-\newpage
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ```
@@ -30,20 +29,21 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 <<processdata1>>
 ```
 #Statistical analysis of node ages
-For each of the statistical analyses outlined in the main manuscript we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, *in situ* speciation nodes, comparison of nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times.
+For each of the statistical analyses outlined in the main manuscript (except for where explicitly noted) we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* flight loss nodes, *in situ* speciation nodes, comparison of colonisation nodes across islands) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times. In each iteration, any given node was only sampled once.
+\newpage
 
 #Statistics from the Bayesian Binary Markov analysis in RASP.
 ##RASP BBM
 ```{r echo=FALSE}
 read_chunk('R_scripts/BBM_biogeography.R')
 ```
-```{r fig.width=7, fig.height=10, message=F, warning=F}
+```{r fig.width=7, fig.height=9.5, message=F, warning=F}
 <<BBMtreeprocess>>
 <<BBMtreeplot>>
 ```
 \newpage
 From the previous plot we can group nodes as indicated in the legend.
-```{r fig.width=7, fig.height=10, message=F, warning=F}
+```{r fig.width=7, fig.height=9.5, message=F, warning=F}
 <<BBMstatsnodes>>
 ```
 
@@ -77,6 +77,9 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ##Comparing the age of *in situ* speciation events on Reunion to colonisation events
 ```{r}
 <<BBMinsituReu>>
+```
+As there are exactly the same number of colonisation and *in situ* speciation events inferred for Reunion, the resampling doesn't work and repeatedly returns the same mean value. A more apropriate test in this situation is the age of all colonisation nodes vs all *in situ* speciation nodes.
+```{r}
 <<BBMinsituReuttest>>
 ```
 \newpage
@@ -96,12 +99,17 @@ This is reversed relative to the test performed on Reunion nodes as there are ma
 ```{r echo=FALSE}
 read_chunk('R_scripts/ML_biogeography.R')
 ```
-```{r fig.width=7, fig.height=10, message=F, warning=F}
+```{r fig.width=7, fig.height=9.5, message=F, warning=F}
 <<MLtreeprocess>>
 <<MLtreeplot>>
 ```
 \newpage
+From the previous plot we can group nodes as indicated in the legend.
+```{r fig.width=7, fig.height=9.5, message=F, warning=F}
+<<RMLstatsnodes>>
+```
 
+\newpage
 ```{r echo=FALSE}
 read_chunk('R_scripts/RML_node_age_stats.R')
 ```
@@ -120,6 +128,10 @@ read_chunk('R_scripts/RML_node_age_stats.R')
 ##Comparing the average node age on Reunion to Mauritius
 ```{r}
 <<RMLMauvsReu>>
+```
+As can be seen here, with only one colonisation of Mauritius from Reunion inferred, the script repeatedly samples single node ages, a more appropriate test in this instance is all Reunion colonisations vs the age of the single Mauritian colonisation.
+```{r}
+
 <<RMLMauvsReuttest>>
 ```
 \newpage
@@ -139,4 +151,8 @@ read_chunk('R_scripts/RML_node_age_stats.R')
 This is reversed relative to the test performed on Reunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 ```{r}
 <<RMLinsituMau>>
+```
+As with the t-test for Reunion vs Mauritian colonisation agesthere is only one colonisation of Mauritius from Reunion inferred. so once again, a more appropriate test is the age all Mauritian *in situ* speciation nodes vs the age of the single Mauritian colonisation.
+```{r}
 <<RMLinsituMauttest>>
+```
