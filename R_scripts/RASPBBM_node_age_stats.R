@@ -23,7 +23,7 @@ my.tree<-my.trees[[1]] ### raw outpout from MrBayes with polytomies
 ### Calculate the branch depths for each node (distance from tip) and the node number
 node.depths<-as.numeric(branching.times(my.tree))
 node.depths<-round(node.depths,7)
-nodes<-seq(1, length(my.tree$node.label))
+nodes<-seq(length(my.tree$tip.label)+1, length(my.tree$tip.label)+length(my.tree$node.label),1)
 node.depths<-cbind(nodes,node.depths)
 node.depths<-as.data.frame(node.depths)
 
@@ -38,6 +38,8 @@ node.depths$Median_low <- round((HPD$CredInt_Lower[match(node.depths$node.depths
 ########################################################################################################
 
 ### define node numbers for the groups of nodes we will test.
+### Nodes with Flight loss
+fl.loss<-c(65,87,92,110)
 ### Colonisations of Reunion from Mauritius
 Reu.col<-c(65,68,73,74,75,92,95,99)
 ### internal speciation events on Reunion
