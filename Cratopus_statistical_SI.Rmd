@@ -92,6 +92,8 @@ As there are exactly the same number of colonisation and *in situ* speciation ev
 <<BBMflightloss>>
 <<BBMflightlossttest>>
 ```
+
+Here we can see that nodes leading to flight loss (*mean* = `r fl.mean` mya) are significanty younger than other nodes (*mean* = `r f.mean` mya, *95% CI* = `r fl.CI[1]` mya - `r fl.CI[2]` mya, *t* = `r fl.t`, *df* = `r fl.df`, *p* = $`r fl.p`$)
 \newpage
 #Statistics from the Maximum Likelihood analyses in R.
 ##R Maximum Likelihood

@@ -84,6 +84,14 @@ abline(v=mean(node.depths$Median_age[node.depths$nodes %in% fl.loss.nodes]),
 ## @knitr BBMflightlossttest
 ### test the bootstrapped non-flightloss node ages against the mean age of flight loss nodes
 t.test(mean.fl, mu=mean(node.depths$Median_age[node.depths$nodes %in% fl.loss.nodes]))
+fl.test<-t.test(mean.fl, mu=mean(node.depths$Median_age[node.depths$nodes %in% fl.loss.nodes]))
+fl.mean<-signif(fl.test$null.value,3)
+f.mean<-signif(fl.test$estimate,3)
+fl.CI<-signif(fl.test$conf.int,3)
+fl.df<-signif(fl.test$parameter,3)
+fl.p=signif(fl.test$p.value,3)
+fl.t<-signif(fl.test$statistic,3)
+
 
 ########################################################################################################
 #### testing age of Mauritius colonisation nodes vs Reunion colonisation nodes
