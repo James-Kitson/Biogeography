@@ -1,12 +1,10 @@
 ---
 title: "Appendix S4: Statistical Analyses for Kitson *et al.* 2016"
-author: '**James Kitson**'
-header-includes:
-   - \usepackage[final]{pdfpages}
 output: 
     pdf_document:
       latex_engine: xelatex
 mainfont: Cambria
+fontsize: 12pt
 toc: true
 urlcolor: blue
 ---
@@ -19,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       dev = 'pdf',
                       fig.align='center')
 ```
-
+\newpage
 #Outline
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeographic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
 
@@ -149,7 +147,7 @@ This is reversed relative to the test performed on Réunion nodes as there are m
 ```{r}
 <<RMLinsituMau>>
 ```
-As with the t-test for Réunion vs Mauritian colonisation agesthere is only one colonisation of Mauritius from Réunion inferred. So once again, a more appropriate test is the age of all Mauritian *in situ* speciation nodes vs the age of the single Mauritian colonisation.
+As with the t-test for Réunion vs Mauritian colonisation ages there is only one colonisation of Mauritius from Réunion inferred. So once again, a more appropriate test is the age of all Mauritian *in situ* speciation nodes vs the age of the single Mauritian colonisation.
 ```{r}
 <<RMLinsituMauttest>>
 ```
