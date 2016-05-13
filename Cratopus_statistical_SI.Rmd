@@ -59,7 +59,7 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
 ```
-The age of nodes leading to colonisations of Mauritius (*mean age* = `r round(BBMMauvsReu.test$null.value,2)` mya) is significantly less than nodes leading to colonisations of Réunion (*mean age* = `r round(BBMMauvsReu.test$estimate,2)` mya, *95% CI* = `r round(BBMMauvsReu.test$conf.int[1],2)` mya - `r round(BBMMauvsReu.test$conf.int[2],2)` mya, *t* = `r round(BBMMauvsReu.test$statistic,2)`, *df* = `r round(BBMMauvsReu.test$parameter,2)`, *p* $`r ifelse(BBMMauvsReu.test$p.value < 0.0001,"< 0.0001", paste("= ", round(BBMMauvsReu.test$p.value,2), sep=""))`$)
+The age of nodes leading to colonisations of Mauritius (*mean age* = `r round(BBMMauvsReu.test$null.value,2)` mya) is significantly less than nodes leading to colonisations of Réunion (*mean age* = `r round(BBMMauvsReu.test$estimate,2)` mya, *95% CI* = `r round(BBMMauvsReu.test$conf.int[1],2)` mya - `r round(BBMMauvsReu.test$conf.int[2],2)` mya, *t* = `r round(BBMMauvsReu.test$statistic,2)`, *df* = `r round(BBMMauvsReu.test$parameter,2)`, *p* `r ifelse(BBMMauvsReu.test$p.value < 0.0001,"< 0.0001", paste("= ", round(BBMMauvsReu.test$p.value,2), sep=""))`)
 
 \newpage
 ```{r}
@@ -73,7 +73,7 @@ This is reversed relative to the test performed on Réunion nodes as there are m
 <<BBMinsituMauttest>>
 ```
 
-Here we can see that nodes leading to colonisations of Mauritius (*mean age* = `r round(BBMMauinsitu.test$null.value,2)` mya) are significantly younger than *in situ* speciation events (*mean age* = `r round(BBMMauinsitu.test$estimate,2)` mya, *95% CI* = `r round(BBMMauinsitu.test$conf.int[1],2)` mya - `r round(BBMMauinsitu.test$conf.int[2],2)` mya, *t* = `r round(BBMMauinsitu.test$statistic,2)`, *df* = `r round(BBMMauinsitu.test$parameter,2)`, *p* $`r ifelse(BBMMauinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMMauinsitu.test$p.value,2), sep=""))`$)
+Here we can see that nodes leading to colonisations of Mauritius (*mean age* = `r round(BBMMauinsitu.test$null.value,2)` mya) are significantly younger than *in situ* speciation events (*mean age* = `r round(BBMMauinsitu.test$estimate,2)` mya, *95% CI* = `r round(BBMMauinsitu.test$conf.int[1],2)` mya - `r round(BBMMauinsitu.test$conf.int[2],2)` mya, *t* = `r round(BBMMauinsitu.test$statistic,2)`, *df* = `r round(BBMMauinsitu.test$parameter,2)`, *p* `r ifelse(BBMMauinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMMauinsitu.test$p.value,2), sep=""))`)
 
 \newpage
 ```{r}
@@ -88,7 +88,7 @@ As there are exactly the same number of colonisation and *in situ* speciation ev
 <<BBMinsituReuttest>>
 ```
 
-Colonisations of Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[2],2)` mya, *sd* = `r round(sd(Reu.col$Median_age),2)`) are not significantly different in age to *in situ* speciation nodes on Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[1],2)` mya, *sd* = `r round(sd(Reu.insitu$Median_age),2)`, *t* = `r round(BBMReuinsitu.test$statistic,2)`, *df* = `r round(BBMReuinsitu.test$parameter,2)`, *p* $`r ifelse(BBMReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMReuinsitu.test$p.value,2), sep=""))`$)
+Colonisations of Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[2],2)` mya, *sd* = `r round(sd(Reu.col$Median_age),2)`) are not significantly different in age to *in situ* speciation nodes on Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[1],2)` mya, *sd* = `r round(sd(Reu.insitu$Median_age),2)`, *t* = `r round(BBMReuinsitu.test$statistic,2)`, *df* = `r round(BBMReuinsitu.test$parameter,2)`, *p* `r ifelse(BBMReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMReuinsitu.test$p.value,2), sep=""))`)
 
 \newpage
 
@@ -99,7 +99,7 @@ Colonisations of Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[2],2
 <<BBMflightlossttest>>
 ```
 
-Nodes leading to flight loss (*mean age* = `r round(BBMfl.test$null.value,2)` mya) are significantly younger than other nodes (*mean age* = `r round(BBMfl.test$estimate,2)` mya, *95% CI* = `r round(BBMfl.test$conf.int[1],2)` mya - `r round(BBMfl.test$conf.int[2],2)` mya, *t* = `r round(BBMfl.test$statistic,2)`, *df* = `r round(BBMfl.test$parameter,2)`, *p* $`r ifelse(BBMfl.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMfl.test$p.value,2), sep=""))`$)
+Nodes leading to flight loss (*mean age* = `r round(BBMfl.test$null.value,2)` mya) are significantly younger than other nodes (*mean age* = `r round(BBMfl.test$estimate,2)` mya, *95% CI* = `r round(BBMfl.test$conf.int[1],2)` mya - `r round(BBMfl.test$conf.int[2],2)` mya, *t* = `r round(BBMfl.test$statistic,2)`, *df* = `r round(BBMfl.test$parameter,2)`, *p* `r ifelse(BBMfl.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(BBMfl.test$p.value,2), sep=""))`)
 
 \newpage
 
@@ -136,7 +136,7 @@ As can be seen here, with only one colonisation of Mauritius from Réunion infer
 <<RMLMauvsReuttest>>
 ```
 
-The age of the single colonisation of Mauritius (`r round(RMLMauvsReu.test$null.value,2)` mya) is significantly less than nodes leading to colonisations of Réunion (*mean age* = `r round(RMLMauvsReu.test$estimate,2)` mya, *95% CI* = `r round(RMLMauvsReu.test$conf.int[1],2)` mya - `r round(RMLMauvsReu.test$conf.int[2],2)` mya, *t* = `r round(RMLMauvsReu.test$statistic,2)`, *df* = `r round(RMLMauvsReu.test$parameter,2)`, *p* $`r ifelse(RMLMauvsReu.test$p.value < 0.0001,"< 0.0001", paste("= ", round(RMLMauvsReu.test$p.value,2), sep=""))`$)
+The age of the single colonisation of Mauritius (`r round(RMLMauvsReu.test$null.value,2)` mya) is significantly less than nodes leading to colonisations of Réunion (*mean age* = `r round(RMLMauvsReu.test$estimate,2)` mya, *95% CI* = `r round(RMLMauvsReu.test$conf.int[1],2)` mya - `r round(RMLMauvsReu.test$conf.int[2],2)` mya, *t* = `r round(RMLMauvsReu.test$statistic,2)`, *df* = `r round(RMLMauvsReu.test$parameter,2)`, *p* `r ifelse(RMLMauvsReu.test$p.value < 0.0001,"< 0.0001", paste("= ", round(RMLMauvsReu.test$p.value,2), sep=""))`)
 
 \newpage
 ```{r}
@@ -152,7 +152,7 @@ As with the t-test for Réunion vs Mauritian colonisation ages there is only one
 <<RMLinsituMauttest>>
 ```
 
-Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu.test$null.value,2)` mya) is significantly younger than the *in situ* speciation events on Mauritius (*mean age* = `r round(RMLMauinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLMauinsitu.test$conf.int[1],2)` mya - `r round(RMLMauinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLMauinsitu.test$statistic,2)`, *df* = `r round(RMLMauinsitu.test$parameter,2)`, *p* $`r ifelse(RMLMauinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLMauinsitu.test$p.value,2), sep=""))`$)
+Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu.test$null.value,2)` mya) is significantly younger than the *in situ* speciation events on Mauritius (*mean age* = `r round(RMLMauinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLMauinsitu.test$conf.int[1],2)` mya - `r round(RMLMauinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLMauinsitu.test$statistic,2)`, *df* = `r round(RMLMauinsitu.test$parameter,2)`, *p* `r ifelse(RMLMauinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLMauinsitu.test$p.value,2), sep=""))`)
 
 \newpage  
 ```{r}
@@ -164,7 +164,7 @@ Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu
 <<RMLinsituReuttest>>
 ```
 
-Colonisations of Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)` mya) are significantly younger than *in situ* speciation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLReuinsitu.test$conf.int[1],2)` mya - `r round(RMLReuinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLReuinsitu.test$statistic,2)`, *df* = `r round(RMLReuinsitu.test$parameter,2)`, *p* $`r ifelse(RMLReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLReuinsitu.test$p.value,2), sep=""))`$)
+Colonisations of Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)` mya) are significantly younger than *in situ* speciation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLReuinsitu.test$conf.int[1],2)` mya - `r round(RMLReuinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLReuinsitu.test$statistic,2)`, *df* = `r round(RMLReuinsitu.test$parameter,2)`, *p* `r ifelse(RMLReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLReuinsitu.test$p.value,2), sep=""))`)
 
 \newpage
 ##S4.2.5 Comparing the age of flight loss nodes to nodes without flight loss
@@ -173,4 +173,4 @@ Colonisations of Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)
 <<RMLflightlossttest>>
 ```
 
-Nodes leading to flight loss (*mean age* = `r round(RMLfl.test$null.value,2)` mya) are significantly younger than other nodes (*mean age* = `r round(RMLfl.test$estimate,2)` mya, *95% CI* = `r round(RMLfl.test$conf.int[1],2)` mya - `r round(RMLfl.test$conf.int[2],2)` mya, *t* = `r round(RMLfl.test$statistic,2)`, *df* = `r round(RMLfl.test$parameter,2)`, *p* $`r ifelse(RMLfl.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLfl.test$p.value,2), sep=""))`$)
+Nodes leading to flight loss (*mean age* = `r round(RMLfl.test$null.value,2)` mya) are significantly younger than other nodes (*mean age* = `r round(RMLfl.test$estimate,2)` mya, *95% CI* = `r round(RMLfl.test$conf.int[1],2)` mya - `r round(RMLfl.test$conf.int[2],2)` mya, *t* = `r round(RMLfl.test$statistic,2)`, *df* = `r round(RMLfl.test$parameter,2)`, *p* `r ifelse(RMLfl.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLfl.test$p.value,2), sep=""))`)
