@@ -164,7 +164,7 @@ Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu
 <<RMLinsituReuttest>>
 ```
 
-Colonisations of Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)` mya) are significantly younger than *in situ* speciation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLReuinsitu.test$conf.int[1],2)` mya - `r round(RMLReuinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLReuinsitu.test$statistic,2)`, *df* = `r round(RMLReuinsitu.test$parameter,2)`, *p* `r ifelse(RMLReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLReuinsitu.test$p.value,2), sep=""))`)
+*In situ* speciation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)` mya) are significantly younger than colonisation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$estimate,2)` mya, *95% CI* = `r round(RMLReuinsitu.test$conf.int[1],2)` mya - `r round(RMLReuinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLReuinsitu.test$statistic,2)`, *df* = `r round(RMLReuinsitu.test$parameter,2)`, *p* `r ifelse(RMLReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLReuinsitu.test$p.value,2), sep=""))`)
 
 \newpage
 ##S4.2.5 Comparing the age of flight loss nodes to nodes without flight loss
