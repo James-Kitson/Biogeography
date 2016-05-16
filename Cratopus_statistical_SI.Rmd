@@ -3,6 +3,8 @@ title: "Appendix S4: Statistical Analyses for Kitson *et al.* 2016"
 output: 
     pdf_document:
       latex_engine: xelatex
+header-includes:
+  - \usepackage{xcolor}
 mainfont: Cambria
 fontsize: 12pt
 toc: true
@@ -36,13 +38,13 @@ For each of the statistical analyses outlined in the main manuscript (except for
 ```{r echo=FALSE}
 read_chunk('R_scripts/BBM_biogeography.R')
 ```
-```{r fig.width=7, fig.height=9.5, message=F, warning=F}
+```{r fig.width=7, fig.height=9, message=F, warning=F}
 <<BBMtreeprocess>>
 <<BBMtreeplot>>
 ```
 \newpage
 From the previous plot we can group nodes as indicated in the legend.
-```{r fig.width=7, fig.height=9.5, message=F, warning=F}
+```{r fig.width=7, fig.height=9, message=F, warning=F}
 <<BBMstatsnodes>>
 ```
 
@@ -108,13 +110,13 @@ Nodes leading to flight loss (*mean age* = `r round(BBMfl.test$null.value,2)` my
 ```{r echo=FALSE}
 read_chunk('R_scripts/ML_biogeography.R')
 ```
-```{r fig.width=7, fig.height=9.5, message=F, warning=F}
+```{r fig.width=7, fig.height=9, message=F, warning=F}
 <<MLtreeprocess>>
 <<MLtreeplot>>
 ```
 \newpage
 From the previous plot we can group nodes as indicated in the legend.
-```{r fig.width=7, fig.height=9.5, message=F, warning=F}
+```{r fig.width=7, fig.height=9, message=F, warning=F}
 <<RMLstatsnodes>>
 ```
 
@@ -174,3 +176,37 @@ Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu
 ```
 
 Nodes leading to flight loss (*mean age* = `r round(RMLfl.test$null.value,2)` mya) are significantly younger than other nodes (*mean age* = `r round(RMLfl.test$estimate,2)` mya, *95% CI* = `r round(RMLfl.test$conf.int[1],2)` mya - `r round(RMLfl.test$conf.int[2],2)` mya, *t* = `r round(RMLfl.test$statistic,2)`, *df* = `r round(RMLfl.test$parameter,2)`, *p* `r ifelse(RMLfl.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLfl.test$p.value,2), sep=""))`)
+\newpage
+\eject \pdfpagewidth=400mm \pdfpageheight=210mm
+
+|   Island   |      Morphospecies      | Island group |   Island  |      Morphospecies      | Island group |      Island      |       Morphospecies      | Island group |
+|:----------:|:-----------------------:|:------------:|:---------:|:-----------------------:|:------------:|:----------------:|:------------------------:|:------------:|
+| La Réunion |   Cratopopsis alluaudi  |  Mascarenes  | Mauritius | Cratopopsis mauritianus |  Mascarenes  |     Rodrigues    |   Cratopopsis pauliani   |  Mascarenes  |
+| La Réunion |   Cratopopsis bistigma  |  Mascarenes  | Mauritius |  Cratopopsis impressus  |  Mascarenes  |     Rodrigues    |    Cratopus inornatus    |  Mascarenes  |
+| La Réunion |  Cratopopsis coquereli  |  Mascarenes  | Mauritius |   Cratopus aeneoniger   |  Mascarenes  |     Rodrigues    |      Cratopus rocki      |  Mascarenes  |
+| La Réunion |   Cratopopsis cribatus  |  Mascarenes  | Mauritius |     Cratopus armatus    |  Mascarenes  |     Rodrigues    |    Cratopus virescens    |  Mascarenes  |
+| La Réunion | Cratopopsis fulvicornis |  Mascarenes  | Mauritius |   Cratopus caliginosus  |  Mascarenes  |     Rodrigues    | Cratopus viridipunctatus |  Mascarenes  |
+| La Réunion | Cratopopsis nitidifrons |  Mascarenes  | Mauritius |     Cratopus cariei     |  Mascarenes  |      Aldabra     |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |   Cratopopsis obscurus  |  Mascarenes  | Mauritius |    Cratopus confusus    |  Mascarenes  |      Aldabra     |  Cratopus viridisparsus  |  Seychelles  |
+| La Réunion |  Cratopopsis villosulus |  Mascarenes  | Mauritius |    Cratopus deceptus    |  Mascarenes  |   Aride Island   |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |     Cratopus bernei     |  Mascarenes  | Mauritius |   Cratopus emarginatus  |  Mascarenes  |   Cousin Island  |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |   Cratopus angustatus   |  Mascarenes  | Mauritius |    Cratopus fasciger    |  Mascarenes  |  Cousine Island  |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |  Cratopus circumcinctus |  Mascarenes  | Mauritius | Cratopus melanocephalus |  Mascarenes  |     La Digue     |   Cratopus aurostriatus  |  Seychelles  |
+| La Réunion |   Cratopus ditissimus   |  Mascarenes  | Mauritius |     Cratopus molitor    |  Mascarenes  |     La Digue     |     Cratopus Dig_sp1     |  Seychelles  |
+| La Réunion |   Cratopus exquisitus   |  Mascarenes  | Mauritius |    Cratopus mundulus    |  Mascarenes  |     La Digue     |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |    Cratopus frappieri   |  Mascarenes  | Mauritius |     Cratopus murinus    |  Mascarenes  |       Mahe       |     Cratopus Mah sp1     |  Seychelles  |
+| La Réunion |   Cratopus fulvescens   |  Mascarenes  | Mauritius |  Cratopus nigrogranatus |  Mascarenes  |      Praslin     |    Cratopus segregatus   |  Seychelles  |
+| La Réunion |    Cratopus humeralis   |  Mascarenes  | Mauritius |     Cratopus nothus     |  Mascarenes  |    Silhouette    |  Cratopus griseovestitus |  Seychelles  |
+| La Réunion |  Cratopus leucophaetus  |  Mascarenes  | Mauritius |     Cratopus ovalis     |  Mascarenes  |    Silhouette    |    Cratopus segregatus   |  Seychelles  |
+| La Réunion |    Cratopus marmoreus   |  Mascarenes  | Mauritius |    Cratopus psittacus   |  Mascarenes  |      Anjouan     |    Cratopus AnjCom sp1   |    Comoros   |
+| La Réunion |    Cratopus. murinus    |  Mascarenes  | Mauritius |     Cratopus punctum    |  Mascarenes  |      Anjouan     |    Cratopus AnjCom sp2   |    Comoros   |
+| La Réunion |   Cratopus nigridorsis  |  Mascarenes  | Mauritius |    Cratopus stigmaeus   |  Mascarenes  |   Grande Comore  |     Cratopus GCom sp1    |    Comoros   |
+| La Réunion | Cratopus septemvittatus |  Mascarenes  | Mauritius |     Cratopus striga     |  Mascarenes  |   Grande Comore  |   Cratopus subdenudatus  |    Comoros   |
+| La Réunion |     Cratopus tristis    |  Mascarenes  | Mauritius |    Cratopus tigratus    |  Mascarenes  |      Mayotte     |    Cratopus ditissimus   |    Comoros   |
+| La Réunion |    Scaevinus dombayae   |  Mascarenes  | Mauritius |   Cratopus variegatus   |  Mascarenes  |      Moheli      |    Cratopus MohCom sp1   |    Comoros   |
+|            |                         |              | Mauritius | Cratopus viridilimbatus |  Mascarenes  |      Europa      |  Cratopus viridisparsus  |  Iles Eparse |
+|            |                         |              | Mauritius |    Cratopus viridulus   |  Mascarenes  | Grande Glorieuse |    Cratopus gloriosus    |  Iles Eparse |
+|            |                         |              | Mauritius |    Cratopus vulgaris    |  Mascarenes  |   Juan de Nova   |    Cratopus adspersus    |  Iles Eparse |
+|            |                         |              | Mauritius |  Scaevinus subtruncatus |  Mascarenes  |    Madagascar    |   Polyclaeis equestris   |  Madagascar  |
+
+\newpage
