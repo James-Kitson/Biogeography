@@ -1,0 +1,1 @@
+The Jupyter note book presented here is a handy function for subsampling MrBayes trees with burnin as Logcombiner currently does not read .t files correctly. Useful if you want to perform biogeographic analyses on MCC trees ranther than majority rule consensus trees.
