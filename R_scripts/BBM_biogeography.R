@@ -14,19 +14,19 @@ library(plyr)
 library(strap)
 
 ### read in the tree
-my.trees<-read.nexus("Data/trees/concatenated_loci/All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/trees/concatenated_loci/Cratopus_Multilocus.nex.con.tre")
 my.tree<-my.trees[[1]]
 
 ### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
 HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### read in the list of names
-name<-read.csv("Data/all_names.csv")
+name<-read.csv("Data/Multilocus_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 
-###Get the biogeographic reconstruvtion from RASP BBM
+###Get the biogeographic reconstruction from RASP BBM
 Cratopus_anc<-read.csv("Data/RASP_BBManc.csv", row.names=1, header=TRUE)
 
 ########################################################################################################

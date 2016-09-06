@@ -12,15 +12,15 @@ library(ape)
 library(phytools)
 library(plyr)
 
-### read in the tree
-my.trees<-read.nexus("Data/trees/concatenated_loci/All_dating_mcorrected.nex.con.tre")
-my.tree<-my.trees[[1]]
+### read in the tree - just for reference, we use this code to generate the tree imported further down
+#my.trees<-read.nexus("Data/trees/concatenated_loci/All_dating_mcorrected.nex.con.tre")
+#my.tree<-my.trees[[1]]
 
 ### read in the node ages and heights from the vstat file from MrBayes - I have deleted all tip ages leaving only the root and internal nodes
 HPD<-read.csv("Data/bipartition_ages.csv")
 
 ### read in the list of names
-name<-read.csv("Data/all_names.csv")
+name<-read.csv("Data/Multilocus_names.csv")
 ### read.csv turns text into factors, this gets messy later when plotting
 ### so make it character data
 name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
@@ -42,7 +42,7 @@ tree.resolve<-read.nexus("Data/trees/concatenated_loci/resolved_tree.nex")
 tree.resolve$edge.length<-ifelse(tree.resolve$edge.length==0,0.0000000001,tree.resolve$edge.length)
 
 ### read in the island data
-islands<-read.csv("Data/dist_ultra.csv", header=FALSE)
+islands<-read.csv("Data/distributions.csv", header=FALSE)
 colnames(islands)<-c("sample","island")
 
 ### calculate the ML character reconstruction

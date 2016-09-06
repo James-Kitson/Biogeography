@@ -13,7 +13,7 @@ library(phytools)
 library(plyr)
 
 ### read in the trees
-my.trees<-read.nexus("Data/trees/concatenated_loci/All_dating_mcorrected.nex.con.tre")
+my.trees<-read.nexus("Data/trees/concatenated_loci/Cratopus_Multilocus.nex.con.tre")
 
 ### process the trees
 my.tree<-my.trees[[1]] ### raw outpout from MrBayes with polytomies
