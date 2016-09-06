@@ -87,7 +87,7 @@ nodelabels(my.tree$node.label,adj=c(1.5,1.5),frame="none",
             col=ifelse(my.tree$node.label>=0.9,"red",
                       ifelse(my.tree$node.label>=0.5 & my.tree$node.label<0.9,"blue","#0000ff00")),cex=0.5)
 
-legend(x=0.01, y=10,
+legend(x=0.003, y=12,
        legend=c("Madagascar",
                 "Reunion",
                 "Mauritius",
@@ -132,7 +132,7 @@ nodelabels(node=as.numeric(Mau.col.nodes), pch=22, bg="black", cex=3)
 nodelabels(node=as.numeric(Mau.insitu.nodes), pch=21, bg="blue", cex=2)
 nodelabels(node=as.numeric(Reu.insitu.nodes), pch=21, bg="red", cex=2)
 
-legend(0.001,6, title="Legend",legend=c("Colonisation Mau -> Reu", "Colonisation Reu -> Mau", "Mauritius insitu speciation", "Reunion insitu speciation"),
+legend(0.001,6.5, title="Legend",legend=c("Colonisation Mau -> Reu", "Colonisation Reu -> Mau", "Mauritius insitu speciation", "Reunion insitu speciation"),
        pch=c(22,22,21,21), pt.bg=c("grey","black","blue","red"), cex=0.5)
 
 ### make an offset for the axis as R won't draw it from the tip to the root. The offset is a negative starting point for the axis equivalent to the

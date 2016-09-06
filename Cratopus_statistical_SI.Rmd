@@ -4,7 +4,7 @@ output:
     pdf_document:
       latex_engine: xelatex
 mainfont: Cambria
-fontsize: 12pt
+fontsize: 11pt
 toc: FALSE
 urlcolor: blue
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       dev = 'pdf',
                       fig.align='center')
 ```
-#Appendix S4: Statistical Analyses for Kitson *et al.* 2016
+#Appendix S3: Statistical Analyses for Kitson *et al.* 2016
 
 #Introduction
 The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeographic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
@@ -32,8 +32,8 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 For each of the statistical analyses outlined in the main manuscript (except for where explicitly noted) we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* a comparison of colonisation node ages across islands, *in situ* speciation nodes vs colonisation node ages for each island and flight loss nodes vs all other nodes) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times. In each iteration, any given node was only sampled once and in each histogram, the vertical red line indicates the mean or single value that the resampled node ages are being tested against.
 \newpage
 
-##S4.1 Node age statstics based on the ancestral state estimation using Bayesian Binary Markov analysis in RASP.
-###S4.1.1 RASP BBM ancestral state reconstruction.
+##S3.1 Node age statstics based on the ancestral state estimation using Bayesian Binary Markov analysis in RASP.
+###S3.1.1 RASP BBM ancestral state reconstruction.
 ```{r echo=FALSE}
 read_chunk('R_scripts/BBM_biogeography.R')
 ```
@@ -55,7 +55,7 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 <<processdata1>>
 <<processdata2>>
 ```
-###S4.1.2 Comparing the average age of colonisation nodes on Réunion to those Mauritius
+###S3.1.2 Comparing the average age of colonisation nodes on Réunion to those Mauritius
 ```{r}
 <<BBMMauvsReu>>
 <<BBMMauvsReuttest>>
@@ -66,7 +66,7 @@ The age of nodes leading to colonisations of Mauritius (*mean age* = `r round(BB
 ```{r}
 <<processdata4>>
 ```
-###S4.1.3 Comparing the age of colonisation events on Mauritius to *in situ* speciation events
+###S3.1.3 Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Réunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 
 ```{r}
@@ -80,7 +80,7 @@ Here we can see that nodes leading to colonisations of Mauritius (*mean age* = `
 ```{r}
 <<processdata3>>
 ```
-###S4.1.4 Comparing the age of *in situ* speciation events on Réunion to colonisation events
+###S3.1.4 Comparing the age of *in situ* speciation events on Réunion to colonisation events
 ```{r}
 <<BBMinsituReu>>
 ```
@@ -93,7 +93,7 @@ Colonisations of Réunion (*mean age* = `r round(BBMReuinsitu.test$estimate[2],2
 
 \newpage
 
-###S4.1.5 Comparing the age of flight loss nodes to nodes without flight loss
+###S3.1.5 Comparing the age of flight loss nodes to nodes without flight loss
 
 ```{r}
 <<BBMflightloss>>
@@ -104,8 +104,8 @@ Nodes leading to flight loss (*mean age* = `r round(BBMfl.test$null.value,2)` my
 
 \newpage
 
-##S4.2 Node age statstics based on the ancestral state estimation using Maximum Likelihood analyses in R.
-###S4.2.1 R Maximum Likelihood ancestral state reconstruction.
+##S3.2 Node age statstics based on the ancestral state estimation using Maximum Likelihood analyses in R.
+###S3.2.1 R Maximum Likelihood ancestral state reconstruction.
 ```{r echo=FALSE}
 read_chunk('R_scripts/ML_biogeography.R')
 ```
@@ -127,7 +127,7 @@ read_chunk('R_scripts/RML_node_age_stats.R')
 <<processdata5>>
 <<processdata6>>
 ```
-###S4.2.2 Comparing the average age of colonisation nodes on Réunion to those Mauritius
+###S3.2.2 Comparing the average age of colonisation nodes on Réunion to those Mauritius
 ```{r}
 <<RMLMauvsReu>>
 ```
@@ -143,7 +143,7 @@ The age of the single colonisation of Mauritius (`r round(RMLMauvsReu.test$null.
 ```{r}
 <<processdata8>>
 ```
-###S4.2.3 Comparing the age of colonisation events on Mauritius to *in situ* speciation events
+###S3.2.3 Comparing the age of colonisation events on Mauritius to *in situ* speciation events
 This is reversed relative to the test performed on Réunion nodes as there are many more *in situ* speciation nodes on Mauritius than colonisations.
 ```{r}
 <<RMLinsituMau>>
@@ -159,7 +159,7 @@ Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu
 ```{r}
 <<processdata7>>
 ```
-###S4.2.4 Comparing the age of *in situ* speciation events on Réunion to colonisation events
+###S3.2.4 Comparing the age of *in situ* speciation events on Réunion to colonisation events
 ```{r}
 <<RMLinsituReu>>
 <<RMLinsituReuttest>>
@@ -168,7 +168,7 @@ Here we can see that the single colonisation of Mauritius (`r round(RMLMauinsitu
 *In situ* speciation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$null.value,2)` mya) are significantly younger than colonisation events on Réunion (*mean age* = `r round(RMLReuinsitu.test$estimate,2)` mya, *95 % CI* = `r round(RMLReuinsitu.test$conf.int[1],2)` mya - `r round(RMLReuinsitu.test$conf.int[2],2)` mya, *t* = `r round(RMLReuinsitu.test$statistic,2)`, *df* = `r round(RMLReuinsitu.test$parameter,2)`, *p* `r ifelse(RMLReuinsitu.test$p.value < 0.0001,"< 0.0001",paste ("= ", round(RMLReuinsitu.test$p.value,2), sep=""))`)
 
 \newpage
-###S4.2.5 Comparing the age of flight loss nodes to nodes without flight loss
+###S3.2.5 Comparing the age of flight loss nodes to nodes without flight loss
 ```{r}
 <<RMLflightloss>>
 <<RMLflightlossttest>>
