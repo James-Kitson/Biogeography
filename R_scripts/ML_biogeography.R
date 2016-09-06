@@ -30,7 +30,7 @@ name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 ########################################################################################################
 
 ### resolve polytomies
-tree.resolve.out<-multi2di(my.tree, random=TRUE)
+#tree.resolve.out<-multi2di(my.tree, random=TRUE)
 
 ### write the tree to an ouptut file. The polytomies are resolved randomly so you need to write out a file and use that in future
 #write.nexus(tree.resolve.out, file = "Data/resolved_tree.nex")
