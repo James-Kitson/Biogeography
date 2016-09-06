@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = FALSE,
 #Appendix S3: Statistical Analyses for Kitson *et al.* 2016
 
 #Introduction
-The purpose of this Rmarkdown document is to allow users to follow our statistical analyses for both the plotting of biogeographic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
+The purpose of this appendix is to allow users to follow our statistical analyses for both the plotting of biogeographic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
 
 ```{r echo=FALSE}
 read_chunk('R_scripts/RASPBBM_node_age_stats.R')
