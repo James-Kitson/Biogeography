@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 #APPENDIX S3: STATISTICAL ANALYSES
 
-##INTRODUCTION
+##Introduction
 The purpose of this appendix is to allow users to follow our statistical analyses for both the plotting of biogeographic analysis results and the subsequent statistics performed on node ages. Analyses are performed using separate R scripts called by this document and users should refer to the unrendered [Cratopus_statistical_SI.Rmd](https://github.com/James-Kitson/Biogeography/blob/master/Cratopus_statistical_SI.Rmd) file for links to the relevant scripts.
 
 ```{r echo=FALSE}
@@ -28,7 +28,7 @@ read_chunk('R_scripts/RASPBBM_node_age_stats.R')
 ```{r}
 <<processdata1>>
 ```
-##STATISTICAL ANALYSES OF NODE AGES
+##Statistical analyses of node ages
 For each of the statistical analyses outlined in the main manuscript (except for where explicitly noted) we have taken a bootstrapping approach that allows us to compare the mean age of our nodes of interest (*i.e.* a comparison of colonisation node ages across islands, *in situ* speciation nodes vs colonisation node ages for each island and flight loss nodes vs all other nodes) to an equally sized subset of the remaining nodes in each analysis resampled `r iter` times. In each iteration, any given node was only sampled once and in each histogram, the vertical red line indicates the mean or single value that the resampled node ages are being tested against.
 \newpage
 
