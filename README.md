@@ -10,3 +10,7 @@ Each analysis folder contains:
 - Input files
 - Metadata files
 - Output tree files
+
+***********************************************************************************************************
+
+The Rnotebook should be executed in the root of the cloned repository. All filepaths are correctly specified for the various analyses.
