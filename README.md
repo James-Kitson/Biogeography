@@ -9,7 +9,7 @@ In order to make our analyses reproducible we provide:
 Each analysis folder contains:
 - Input files
 - Metadata files
-- Output tree files
+- Output consensus or MCC tree files (users wishing to obtain full tree samples should clone the repository and rerun the analyses)
 
 ***********************************************************************************************************
 
