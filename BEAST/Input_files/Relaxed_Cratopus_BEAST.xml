@@ -267,7 +267,7 @@ id="H3">
 <map name="OneOnX" >beast.math.distributions.OneOnX</map>
 
 
-<run id="mcmc" spec="MCMC" chainLength="100000000" preBurnin="1000000" storeEvery="10000">
+<run id="mcmc" spec="MCMC" chainLength="200000000" preBurnin="2000000" storeEvery="20000">
     <state id="state" storeEvery="5000">
         <tree id="Tree.t:COII" name="stateNode">
             <taxonset id="TaxonSet.COII" spec="TaxonSet">
@@ -275,9 +275,6 @@ id="H3">
             </taxonset>
         </tree>
         <parameter id="birthRate.t:COII" name="stateNode">1.0</parameter>
-        <parameter id="clockRate.c:ArgK" name="stateNode">1.0</parameter>
-        <parameter id="clockRate.c:H3" name="stateNode">1.0</parameter>
-        <parameter id="clockRate.c:28S" name="stateNode">1.0</parameter>
         <parameter id="freqParameter.s:COII" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
         <parameter id="rateAC.s:COII" lower="0.0" name="stateNode">1.0</parameter>
         <parameter id="rateAG.s:COII" lower="0.0" name="stateNode">1.0</parameter>
@@ -285,20 +282,17 @@ id="H3">
         <parameter id="rateCG.s:COII" lower="0.0" name="stateNode">1.0</parameter>
         <parameter id="rateGT.s:COII" lower="0.0" name="stateNode">1.0</parameter>
         <parameter id="kappa.s:28S" lower="0.0" name="stateNode">2.0</parameter>
-        <parameter id="freqParameter.s:ArgK" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
-        <parameter id="rateAC.s:ArgK" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateAG.s:ArgK" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateAT.s:ArgK" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateCG.s:ArgK" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateGT.s:ArgK" lower="0.0" name="stateNode">1.0</parameter>
+        <parameter id="kappa.s:ArgK" lower="0.0" name="stateNode">2.0</parameter>
+        <parameter id="kappa.s:H3" lower="0.0" name="stateNode">2.0</parameter>
+        <parameter id="ucldMean.c:ArgK" name="stateNode">1.0</parameter>
+        <parameter id="ucldStdev.c:ArgK" lower="0.0" name="stateNode">0.1</parameter>
+        <stateNode id="rateCategories.c:ArgK" spec="parameter.IntegerParameter" dimension="114">1</stateNode>
+        <parameter id="ucldMean.c:COII" name="stateNode">1.0</parameter>
+        <parameter id="ucldStdev.c:COII" lower="0.0" name="stateNode">0.1</parameter>
+        <stateNode id="rateCategories.c:COII" spec="parameter.IntegerParameter" dimension="114">1</stateNode>
         <parameter id="freqParameter.s:H3" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
-        <parameter id="rateAC.s:H3" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateAG.s:H3" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateAT.s:H3" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateCG.s:H3" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="rateGT.s:H3" lower="0.0" name="stateNode">1.0</parameter>
-        <parameter id="clockRate.c:COII" name="stateNode">0.0154</parameter>
         <parameter id="freqParameter.s:28S" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
+        <parameter id="freqParameter.s:ArgK" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
     </state>
 
     <init id="RandomTree.t:COII" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:COII" taxa="@COII">
@@ -311,117 +305,78 @@ id="H3">
         <distribution id="prior" spec="util.CompoundDistribution">
             <distribution id="YuleModel.t:COII" spec="beast.evolution.speciation.YuleModel" birthDiffRate="@birthRate.t:COII" tree="@Tree.t:COII"/>
             <prior id="YuleBirthRatePrior.t:COII" name="distribution" x="@birthRate.t:COII">
-                <Uniform id="Uniform.0" name="distr" upper="Infinity"/>
-            </prior>
-            <prior id="ClockPrior.c:28S" name="distribution" x="@clockRate.c:28S">
-                <Uniform id="Uniform.01" name="distr" upper="Infinity"/>
-            </prior>
-            <prior id="ClockPrior.c:ArgK" name="distribution" x="@clockRate.c:ArgK">
-                <Uniform id="Uniform.02" name="distr" upper="Infinity"/>
-            </prior>
-            <prior id="ClockPrior.c:COII" name="distribution" x="@clockRate.c:COII">
-                <LogNormal id="LogNormalDistributionModel.0" meanInRealSpace="true" name="distr">
-                    <parameter id="RealParameter.0" estimate="false" name="M">3.05</parameter>
-                    <parameter id="RealParameter.01" estimate="false" lower="0.0" name="S" upper="5.0">0.05</parameter>
-                </LogNormal>
-            </prior>
-            <prior id="ClockPrior.c:H3" name="distribution" x="@clockRate.c:H3">
-                <Uniform id="Uniform.03" name="distr" upper="Infinity"/>
+                <Uniform id="Uniform.1" name="distr" upper="Infinity"/>
             </prior>
             <prior id="KappaPrior.s:28S" name="distribution" x="@kappa.s:28S">
-                <LogNormal id="LogNormalDistributionModel.01" name="distr">
-                    <parameter id="RealParameter.02" estimate="false" name="M">1.0</parameter>
-                    <parameter id="RealParameter.03" estimate="false" name="S">1.25</parameter>
+                <LogNormal id="LogNormalDistributionModel.0" name="distr">
+                    <parameter id="RealParameter.16" estimate="false" name="M">1.0</parameter>
+                    <parameter id="RealParameter.17" estimate="false" name="S">1.25</parameter>
                 </LogNormal>
             </prior>
-            <prior id="RateACPrior.s:ArgK" name="distribution" x="@rateAC.s:ArgK">
-                <Gamma id="Gamma.0" name="distr">
-                    <parameter id="RealParameter.04" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.05" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
+            <prior id="KappaPrior.s:ArgK" name="distribution" x="@kappa.s:ArgK">
+                <LogNormal id="LogNormalDistributionModel.1" name="distr">
+                    <parameter id="RealParameter.18" estimate="false" name="M">1.0</parameter>
+                    <parameter id="RealParameter.19" estimate="false" name="S">1.25</parameter>
+                </LogNormal>
+            </prior>
+            <prior id="KappaPrior.s:H3" name="distribution" x="@kappa.s:H3">
+                <LogNormal id="LogNormalDistributionModel.2" name="distr">
+                    <parameter id="RealParameter.20" estimate="false" name="M">1.0</parameter>
+                    <parameter id="RealParameter.21" estimate="false" name="S">1.25</parameter>
+                </LogNormal>
             </prior>
             <prior id="RateACPrior.s:COII" name="distribution" x="@rateAC.s:COII">
-                <Gamma id="Gamma.01" name="distr">
-                    <parameter id="RealParameter.06" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.07" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateACPrior.s:H3" name="distribution" x="@rateAC.s:H3">
-                <Gamma id="Gamma.02" name="distr">
-                    <parameter id="RealParameter.08" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.09" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateAGPrior.s:ArgK" name="distribution" x="@rateAG.s:ArgK">
-                <Gamma id="Gamma.03" name="distr">
-                    <parameter id="RealParameter.010" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.011" estimate="false" name="beta">20.0</parameter>
+                <Gamma id="Gamma.0" name="distr">
+                    <parameter id="RealParameter.4" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.5" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
             <prior id="RateAGPrior.s:COII" name="distribution" x="@rateAG.s:COII">
-                <Gamma id="Gamma.04" name="distr">
-                    <parameter id="RealParameter.012" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.013" estimate="false" name="beta">20.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateAGPrior.s:H3" name="distribution" x="@rateAG.s:H3">
-                <Gamma id="Gamma.05" name="distr">
-                    <parameter id="RealParameter.014" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.015" estimate="false" name="beta">20.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateATPrior.s:ArgK" name="distribution" x="@rateAT.s:ArgK">
-                <Gamma id="Gamma.06" name="distr">
-                    <parameter id="RealParameter.016" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.017" estimate="false" name="beta">10.0</parameter>
+                <Gamma id="Gamma.1" name="distr">
+                    <parameter id="RealParameter.6" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.7" estimate="false" name="beta">20.0</parameter>
                 </Gamma>
             </prior>
             <prior id="RateATPrior.s:COII" name="distribution" x="@rateAT.s:COII">
-                <Gamma id="Gamma.07" name="distr">
-                    <parameter id="RealParameter.018" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.019" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateATPrior.s:H3" name="distribution" x="@rateAT.s:H3">
-                <Gamma id="Gamma.08" name="distr">
-                    <parameter id="RealParameter.020" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.021" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateCGPrior.s:ArgK" name="distribution" x="@rateCG.s:ArgK">
-                <Gamma id="Gamma.09" name="distr">
-                    <parameter id="RealParameter.022" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.023" estimate="false" name="beta">10.0</parameter>
+                <Gamma id="Gamma.2" name="distr">
+                    <parameter id="RealParameter.8" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.9" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
             <prior id="RateCGPrior.s:COII" name="distribution" x="@rateCG.s:COII">
-                <Gamma id="Gamma.010" name="distr">
-                    <parameter id="RealParameter.024" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.025" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateCGPrior.s:H3" name="distribution" x="@rateCG.s:H3">
-                <Gamma id="Gamma.011" name="distr">
-                    <parameter id="RealParameter.026" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.027" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
-            <prior id="RateGTPrior.s:ArgK" name="distribution" x="@rateGT.s:ArgK">
-                <Gamma id="Gamma.012" name="distr">
-                    <parameter id="RealParameter.028" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.029" estimate="false" name="beta">10.0</parameter>
+                <Gamma id="Gamma.3" name="distr">
+                    <parameter id="RealParameter.10" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.11" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
             <prior id="RateGTPrior.s:COII" name="distribution" x="@rateGT.s:COII">
-                <Gamma id="Gamma.013" name="distr">
-                    <parameter id="RealParameter.030" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.031" estimate="false" name="beta">10.0</parameter>
+                <Gamma id="Gamma.5" name="distr">
+                    <parameter id="RealParameter.14" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.15" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
-            <prior id="RateGTPrior.s:H3" name="distribution" x="@rateGT.s:H3">
-                <Gamma id="Gamma.014" name="distr">
-                    <parameter id="RealParameter.032" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.033" estimate="false" name="beta">10.0</parameter>
+            <prior id="MeanRatePrior.c:ArgK" name="distribution" x="@ucldMean.c:ArgK">
+                <LogNormal id="LogNormalDistributionModel.4" name="distr">
+                    <parameter id="RealParameter.32" estimate="false" name="M">1.0</parameter>
+                    <parameter id="RealParameter.33" estimate="false" lower="0.0" name="S" upper="5.0">1.25</parameter>
+                </LogNormal>
+            </prior>
+            <prior id="MeanRatePrior.c:COII" name="distribution" x="@ucldMean.c:COII">
+                <LogNormal id="LogNormalDistributionModel.3" meanInRealSpace="true" name="distr">
+                    <parameter id="RealParameter.30" estimate="false" name="M">0.0154</parameter>
+                    <parameter id="RealParameter.31" estimate="false" lower="0.0" name="S" upper="5.0">0.25</parameter>
+                </LogNormal>
+            </prior>
+            <prior id="ucldStdevPrior.c:ArgK" name="distribution" x="@ucldStdev.c:ArgK">
+                <Gamma id="Gamma.6" name="distr">
+                    <parameter id="RealParameter.23" estimate="false" name="alpha">0.5396</parameter>
+                    <parameter id="RealParameter.24" estimate="false" name="beta">0.3819</parameter>
+                </Gamma>
+            </prior>
+            <prior id="ucldStdevPrior.c:COII" name="distribution" x="@ucldStdev.c:COII">
+                <Gamma id="Gamma.7" name="distr">
+                    <parameter id="RealParameter.26" estimate="false" name="alpha">0.5396</parameter>
+                    <parameter id="RealParameter.27" estimate="false" name="beta">0.3819</parameter>
                 </Gamma>
             </prior>
         </distribution>
@@ -436,7 +391,11 @@ id="H3">
                         <frequencies id="estimatedFreqs.s:COII" spec="Frequencies" frequencies="@freqParameter.s:COII"/>
                     </substModel>
                 </siteModel>
-                <branchRateModel id="StrictClock.c:COII" spec="beast.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate.c:COII"/>
+                <branchRateModel id="RelaxedClock.c:COII" spec="beast.evolution.branchratemodel.UCRelaxedClockModel" clock.rate="@ucldMean.c:COII" rateCategories="@rateCategories.c:COII" tree="@Tree.t:COII">
+                    <LogNormal id="LogNormalDistributionModel.c:COII" S="@ucldStdev.c:COII" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.25" estimate="false" lower="0.0" name="M" upper="1.0">1.0</parameter>
+                    </LogNormal>
+                </branchRateModel>
             </distribution>
             <distribution id="treeLikelihood.28S" spec="ThreadedTreeLikelihood" tree="@Tree.t:COII">
                 <data idref="28S"/>
@@ -448,33 +407,33 @@ id="H3">
                         <frequencies id="estimatedFreqs.s:28S" spec="Frequencies" frequencies="@freqParameter.s:28S"/>
                     </substModel>
                 </siteModel>
-                <branchRateModel id="StrictClock.c:28S" spec="beast.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate.c:28S"/>
+                <branchRateModel id="RelaxedClock.c:ArgK" spec="beast.evolution.branchratemodel.UCRelaxedClockModel" clock.rate="@ucldMean.c:ArgK" rateCategories="@rateCategories.c:ArgK" tree="@Tree.t:COII">
+                    <LogNormal id="LogNormalDistributionModel.c:ArgK" S="@ucldStdev.c:ArgK" meanInRealSpace="true" name="distr">
+                        <parameter id="RealParameter.22" estimate="false" lower="0.0" name="M" upper="1.0">1.0</parameter>
+                    </LogNormal>
+                </branchRateModel>
             </distribution>
-            <distribution id="treeLikelihood.ArgK" spec="ThreadedTreeLikelihood" tree="@Tree.t:COII">
+            <distribution id="treeLikelihood.ArgK" spec="ThreadedTreeLikelihood" branchRateModel="@RelaxedClock.c:ArgK" tree="@Tree.t:COII">
                 <data idref="ArgK"/>
                 <siteModel id="SiteModel.s:ArgK" spec="SiteModel">
                     <parameter id="mutationRate.s:ArgK" estimate="false" name="mutationRate">1.0</parameter>
                     <parameter id="gammaShape.s:ArgK" estimate="false" name="shape">1.0</parameter>
                     <parameter id="proportionInvariant.s:ArgK" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
-                    <substModel id="gtr.s:ArgK" spec="GTR" rateAC="@rateAC.s:ArgK" rateAG="@rateAG.s:ArgK" rateAT="@rateAT.s:ArgK" rateCG="@rateCG.s:ArgK" rateGT="@rateGT.s:ArgK">
-                        <parameter id="rateCT.s:ArgK" estimate="false" lower="0.0" name="rateCT">1.0</parameter>
+                    <substModel id="hky.s:ArgK" spec="HKY" kappa="@kappa.s:ArgK">
                         <frequencies id="estimatedFreqs.s:ArgK" spec="Frequencies" frequencies="@freqParameter.s:ArgK"/>
                     </substModel>
                 </siteModel>
-                <branchRateModel id="StrictClock.c:ArgK" spec="beast.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate.c:ArgK"/>
             </distribution>
-            <distribution id="treeLikelihood.H3" spec="ThreadedTreeLikelihood" tree="@Tree.t:COII">
+            <distribution id="treeLikelihood.H3" spec="ThreadedTreeLikelihood" branchRateModel="@RelaxedClock.c:ArgK" tree="@Tree.t:COII">
                 <data idref="H3"/>
                 <siteModel id="SiteModel.s:H3" spec="SiteModel">
                     <parameter id="mutationRate.s:H3" estimate="false" name="mutationRate">1.0</parameter>
                     <parameter id="gammaShape.s:H3" estimate="false" name="shape">1.0</parameter>
                     <parameter id="proportionInvariant.s:H3" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
-                    <substModel id="gtr.s:H3" spec="GTR" rateAC="@rateAC.s:H3" rateAG="@rateAG.s:H3" rateAT="@rateAT.s:H3" rateCG="@rateCG.s:H3" rateGT="@rateGT.s:H3">
-                        <parameter id="rateCT.s:H3" estimate="false" lower="0.0" name="rateCT">1.0</parameter>
+                    <substModel id="hky.s:H3" spec="HKY" kappa="@kappa.s:H3">
                         <frequencies id="estimatedFreqs.s:H3" spec="Frequencies" frequencies="@freqParameter.s:H3"/>
                     </substModel>
                 </siteModel>
-                <branchRateModel id="StrictClock.c:H3" spec="beast.evolution.branchratemodel.StrictClockModel" clock.rate="@clockRate.c:H3"/>
             </distribution>
         </distribution>
     </distribution>
@@ -495,27 +454,6 @@ id="H3">
 
     <operator id="YuleModelWilsonBalding.t:COII" spec="WilsonBalding" tree="@Tree.t:COII" weight="3.0"/>
 
-    <operator id="StrictClockRateScaler.c:ArgK" spec="ScaleOperator" parameter="@clockRate.c:ArgK" scaleFactor="0.75" weight="3.0"/>
-
-    <operator id="StrictClockRateScaler.c:H3" spec="ScaleOperator" parameter="@clockRate.c:H3" scaleFactor="0.75" weight="3.0"/>
-
-    <operator id="StrictClockRateScaler.c:28S" spec="ScaleOperator" parameter="@clockRate.c:28S" scaleFactor="0.75" weight="3.0"/>
-
-    <operator id="strictClockUpDownOperator.c:H3" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
-        <up idref="clockRate.c:H3"/>
-        <down idref="Tree.t:COII"/>
-    </operator>
-
-    <operator id="strictClockUpDownOperator.c:ArgK" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
-        <up idref="clockRate.c:ArgK"/>
-        <down idref="Tree.t:COII"/>
-    </operator>
-
-    <operator id="strictClockUpDownOperator.c:28S" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
-        <up idref="clockRate.c:28S"/>
-        <down idref="Tree.t:COII"/>
-    </operator>
-
     <operator id="FrequenciesExchanger.s:COII" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:COII"/>
     </operator>
@@ -532,46 +470,53 @@ id="H3">
 
     <operator id="KappaScaler.s:28S" spec="ScaleOperator" parameter="@kappa.s:28S" scaleFactor="0.5" weight="0.1"/>
 
-    <operator id="FrequenciesExchanger.s:ArgK" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
-        <parameter idref="freqParameter.s:ArgK"/>
+    <operator id="KappaScaler.s:ArgK" spec="ScaleOperator" parameter="@kappa.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+
+    <operator id="KappaScaler.s:H3" spec="ScaleOperator" parameter="@kappa.s:H3" scaleFactor="0.5" weight="0.1"/>
+
+    <operator id="ucldMeanScaler.c:ArgK" spec="ScaleOperator" parameter="@ucldMean.c:ArgK" scaleFactor="0.5" weight="1.0"/>
+
+    <operator id="ucldStdevScaler.c:ArgK" spec="ScaleOperator" parameter="@ucldStdev.c:ArgK" scaleFactor="0.5" weight="3.0"/>
+
+    <operator id="CategoriesRandomWalk.c:ArgK" spec="IntRandomWalkOperator" parameter="@rateCategories.c:ArgK" weight="10.0" windowSize="1"/>
+
+    <operator id="CategoriesSwapOperator.c:ArgK" spec="SwapOperator" intparameter="@rateCategories.c:ArgK" weight="10.0"/>
+
+    <operator id="CategoriesUniform.c:ArgK" spec="UniformOperator" parameter="@rateCategories.c:ArgK" weight="10.0"/>
+
+    <operator id="relaxedUpDownOperator.c:ArgK" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
+        <up idref="ucldMean.c:ArgK"/>
+        <down idref="Tree.t:COII"/>
     </operator>
 
-    <operator id="RateACScaler.s:ArgK" spec="ScaleOperator" parameter="@rateAC.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+    <operator id="ucldMeanScaler.c:COII" spec="ScaleOperator" parameter="@ucldMean.c:COII" scaleFactor="0.5" weight="1.0"/>
 
-    <operator id="RateAGScaler.s:ArgK" spec="ScaleOperator" parameter="@rateAG.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+    <operator id="ucldStdevScaler.c:COII" spec="ScaleOperator" parameter="@ucldStdev.c:COII" scaleFactor="0.5" weight="3.0"/>
 
-    <operator id="RateATScaler.s:ArgK" spec="ScaleOperator" parameter="@rateAT.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+    <operator id="CategoriesRandomWalk.c:COII" spec="IntRandomWalkOperator" parameter="@rateCategories.c:COII" weight="10.0" windowSize="1"/>
 
-    <operator id="RateCGScaler.s:ArgK" spec="ScaleOperator" parameter="@rateCG.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+    <operator id="CategoriesSwapOperator.c:COII" spec="SwapOperator" intparameter="@rateCategories.c:COII" weight="10.0"/>
 
-    <operator id="RateGTScaler.s:ArgK" spec="ScaleOperator" parameter="@rateGT.s:ArgK" scaleFactor="0.5" weight="0.1"/>
+    <operator id="CategoriesUniform.c:COII" spec="UniformOperator" parameter="@rateCategories.c:COII" weight="10.0"/>
+
+    <operator id="relaxedUpDownOperator.c:COII" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
+        <up idref="ucldMean.c:COII"/>
+        <down idref="Tree.t:COII"/>
+    </operator>
 
     <operator id="FrequenciesExchanger.s:H3" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:H3"/>
-    </operator>
-
-    <operator id="RateACScaler.s:H3" spec="ScaleOperator" parameter="@rateAC.s:H3" scaleFactor="0.5" weight="0.1"/>
-
-    <operator id="RateAGScaler.s:H3" spec="ScaleOperator" parameter="@rateAG.s:H3" scaleFactor="0.5" weight="0.1"/>
-
-    <operator id="RateATScaler.s:H3" spec="ScaleOperator" parameter="@rateAT.s:H3" scaleFactor="0.5" weight="0.1"/>
-
-    <operator id="RateCGScaler.s:H3" spec="ScaleOperator" parameter="@rateCG.s:H3" scaleFactor="0.5" weight="0.1"/>
-
-    <operator id="RateGTScaler.s:H3" spec="ScaleOperator" parameter="@rateGT.s:H3" scaleFactor="0.5" weight="0.1"/>
-
-    <operator id="StrictClockRateScaler.c:COII" spec="ScaleOperator" parameter="@clockRate.c:COII" scaleFactor="0.75" weight="3.0"/>
-
-    <operator id="strictClockUpDownOperator.c:COII" spec="UpDownOperator" scaleFactor="0.75" weight="3.0">
-        <up idref="clockRate.c:COII"/>
-        <down idref="Tree.t:COII"/>
     </operator>
 
     <operator id="FrequenciesExchanger.s:28S" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:28S"/>
     </operator>
 
-    <logger id="tracelog" fileName="Cratopus_BEAST.log" logEvery="10000" model="@posterior" sanitiseHeaders="true" sort="smart">
+    <operator id="FrequenciesExchanger.s:ArgK" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
+        <parameter idref="freqParameter.s:ArgK"/>
+    </operator>
+
+    <logger id="tracelog" fileName="Relaxed_Cratopus_BEAST.log" logEvery="20000" model="@posterior" sanitiseHeaders="true" sort="smart">
         <log idref="posterior"/>
         <log idref="likelihood"/>
         <log idref="prior"/>
@@ -579,12 +524,9 @@ id="H3">
         <log id="TreeHeight.t:COII" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:COII"/>
         <log idref="YuleModel.t:COII"/>
         <log idref="birthRate.t:COII"/>
-        <log idref="treeLikelihood.ArgK"/>
-        <log idref="clockRate.c:ArgK"/>
-        <log idref="treeLikelihood.H3"/>
-        <log idref="clockRate.c:H3"/>
         <log idref="treeLikelihood.28S"/>
-        <log idref="clockRate.c:28S"/>
+        <log idref="treeLikelihood.ArgK"/>
+        <log idref="treeLikelihood.H3"/>
         <log idref="freqParameter.s:COII"/>
         <log idref="rateAC.s:COII"/>
         <log idref="rateAG.s:COII"/>
@@ -592,20 +534,17 @@ id="H3">
         <log idref="rateCG.s:COII"/>
         <log idref="rateGT.s:COII"/>
         <log idref="kappa.s:28S"/>
-        <log idref="freqParameter.s:ArgK"/>
-        <log idref="rateAC.s:ArgK"/>
-        <log idref="rateAG.s:ArgK"/>
-        <log idref="rateAT.s:ArgK"/>
-        <log idref="rateCG.s:ArgK"/>
-        <log idref="rateGT.s:ArgK"/>
+        <log idref="kappa.s:ArgK"/>
+        <log idref="kappa.s:H3"/>
+        <log idref="ucldMean.c:ArgK"/>
+        <log idref="ucldStdev.c:ArgK"/>
+        <log id="rate.c:ArgK" spec="beast.evolution.branchratemodel.RateStatistic" branchratemodel="@RelaxedClock.c:ArgK" tree="@Tree.t:COII"/>
+        <log idref="ucldMean.c:COII"/>
+        <log idref="ucldStdev.c:COII"/>
+        <log id="rate.c:COII" spec="beast.evolution.branchratemodel.RateStatistic" branchratemodel="@RelaxedClock.c:COII" tree="@Tree.t:COII"/>
         <log idref="freqParameter.s:H3"/>
-        <log idref="rateAC.s:H3"/>
-        <log idref="rateAG.s:H3"/>
-        <log idref="rateAT.s:H3"/>
-        <log idref="rateCG.s:H3"/>
-        <log idref="rateGT.s:H3"/>
-        <log idref="clockRate.c:COII"/>
         <log idref="freqParameter.s:28S"/>
+        <log idref="freqParameter.s:ArgK"/>
     </logger>
 
     <logger id="screenlog" logEvery="1000">
@@ -615,8 +554,8 @@ id="H3">
         <log idref="prior"/>
     </logger>
 
-    <logger id="treelog.t:COII" fileName="Cratopus_BEAST.trees" logEvery="10000" mode="tree">
-        <log id="TreeWithMetaDataLogger.t:COII" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:COII"/>
+    <logger id="treelog.t:COII" fileName="Relaxed_Cratopus_BEAST.trees" logEvery="20000" mode="tree">
+        <log id="TreeWithMetaDataLogger.t:COII" spec="beast.evolution.tree.TreeWithMetaDataLogger" branchratemodel="@RelaxedClock.c:COII" tree="@Tree.t:COII"/>
     </logger>
 
 </run>
