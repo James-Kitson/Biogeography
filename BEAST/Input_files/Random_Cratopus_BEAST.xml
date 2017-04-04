@@ -268,14 +268,13 @@ id="H3">
 
 
 <run id="mcmc" spec="MCMC" chainLength="200000000" preBurnin="2000000" storeEvery="20000">
-    <state id="state" storeEvery="5000">
+    <state id="state" storeEvery="20000">
         <tree id="Tree.t:COII" name="stateNode">
             <taxonset id="TaxonSet.COII" spec="TaxonSet">
                 <alignment idref="COII"/>
             </taxonset>
         </tree>
         <parameter id="birthRate.t:COII" name="stateNode">1.0</parameter>
-        <parameter id="freqParameter.s:COII" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
         <parameter id="rateAC.s:COII" lower="0.0" name="stateNode">1.0</parameter>
         <parameter id="rateAG.s:COII" lower="0.0" name="stateNode">1.0</parameter>
         <parameter id="rateAT.s:COII" lower="0.0" name="stateNode">1.0</parameter>
@@ -288,9 +287,10 @@ id="H3">
         <parameter id="clockrates.c:COII" dimension="114" name="stateNode">1.0</parameter>
         <stateNode id="Indicators.c:ArgK" spec="parameter.BooleanParameter" dimension="114">false</stateNode>
         <parameter id="clockrates.c:ArgK" dimension="114" name="stateNode">1.0</parameter>
-        <parameter id="freqParameter.s:28S" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
-        <parameter id="freqParameter.s:ArgK" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
+        <parameter id="freqParameter.s:COII" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
         <parameter id="freqParameter.s:H3" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
+        <parameter id="freqParameter.s:ArgK" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
+        <parameter id="freqParameter.s:28S" dimension="4" lower="0.0" name="stateNode" upper="1.0">0.25</parameter>
     </state>
 
     <init id="RandomTree.t:COII" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:COII" taxa="@COII">
@@ -327,6 +327,13 @@ id="H3">
                     <parameter id="RealParameter.39" estimate="false" lower="0.0" name="S" upper="5.0">1.25</parameter>
                 </LogNormal>
             </prior>
+            <prior id="RRatesPrior.c:sArgK" name="distribution" x="@clockrates.c:ArgK">
+                <Gamma id="Gamma.0" name="distr">
+                    <parameter id="RealParameter.4" estimate="false" name="alpha">0.05</parameter>
+                    <parameter id="RealParameter.5" estimate="false" name="beta">10.0</parameter>
+                </Gamma>
+            </prior>
+            <prior id="RRatesPrior.c:sH3" distr="@Gamma.0" name="distribution" x="@clockrates.c:ArgK"/>
             <prior id="RRatesPrior.c:sCOII" name="distribution" x="@clockrates.c:COII">
                 <LogNormal id="LogNormalDistributionModel.5" meanInRealSpace="true" name="distr">
                     <parameter id="RealParameter.36" estimate="false" name="M">0.0154</parameter>
@@ -351,12 +358,7 @@ id="H3">
                     <parameter id="RealParameter.21" estimate="false" name="S">1.25</parameter>
                 </LogNormal>
             </prior>
-            <prior id="RateACPrior.s:COII" name="distribution" x="@rateAC.s:COII">
-                <Gamma id="Gamma.0" name="distr">
-                    <parameter id="RealParameter.4" estimate="false" name="alpha">0.05</parameter>
-                    <parameter id="RealParameter.5" estimate="false" name="beta">10.0</parameter>
-                </Gamma>
-            </prior>
+            <prior id="RateACPrior.s:COII" distr="@Gamma.0" name="distribution" x="@rateAC.s:COII"/>
             <prior id="RateAGPrior.s:COII" name="distribution" x="@rateAG.s:COII">
                 <Gamma id="Gamma.1" name="distr">
                     <parameter id="RealParameter.6" estimate="false" name="alpha">0.05</parameter>
@@ -381,6 +383,67 @@ id="H3">
                     <parameter id="RealParameter.15" estimate="false" name="beta">10.0</parameter>
                 </Gamma>
             </prior>
+            <distribution id="ingroup.prior" spec="beast.math.distributions.MRCAPrior" monophyletic="true" tree="@Tree.t:COII">
+                <taxonset id="ingroup" spec="TaxonSet">
+                    <taxon id="A01_Ald3" spec="Taxon"/>
+                    <taxon id="A02_Reu3926" spec="Taxon"/>
+                    <taxon id="A06_Mau3268" spec="Taxon"/>
+                    <taxon id="A07_Ari1" spec="Taxon"/>
+                    <taxon id="A09_Mau3863" spec="Taxon"/>
+                    <taxon id="A11_Rod56" spec="Taxon"/>
+                    <taxon id="B01_Dig5" spec="Taxon"/>
+                    <taxon id="B02_Sil4" spec="Taxon"/>
+                    <taxon id="B03_Mau3189" spec="Taxon"/>
+                    <taxon id="B04_Reu3461" spec="Taxon"/>
+                    <taxon id="B05_Anj4" spec="Taxon"/>
+                    <taxon id="B06_Mau3284" spec="Taxon"/>
+                    <taxon id="B08_Mau256" spec="Taxon"/>
+                    <taxon id="B10_Reu2320" spec="Taxon"/>
+                    <taxon id="B11_Mah1" spec="Taxon"/>
+                    <taxon id="C02_Mau3202" spec="Taxon"/>
+                    <taxon id="C04_Reu3837" spec="Taxon"/>
+                    <taxon id="C05_Dig2" spec="Taxon"/>
+                    <taxon id="C06_Reu2000" spec="Taxon"/>
+                    <taxon id="C08_Mau3856" spec="Taxon"/>
+                    <taxon id="C09_EUR51" spec="Taxon"/>
+                    <taxon id="C10_Reu2580" spec="Taxon"/>
+                    <taxon id="D01_Reu5116" spec="Taxon"/>
+                    <taxon id="D02_Mau3001" spec="Taxon"/>
+                    <taxon id="D04_Reu4006" spec="Taxon"/>
+                    <taxon id="D06_Pra6" spec="Taxon"/>
+                    <taxon id="D07_Rod286" spec="Taxon"/>
+                    <taxon id="D09_Reu2041" spec="Taxon"/>
+                    <taxon id="E04_Mau270" spec="Taxon"/>
+                    <taxon id="E06_Mau3680" spec="Taxon"/>
+                    <taxon id="E07_Mau3707" spec="Taxon"/>
+                    <taxon id="E09_Reu268" spec="Taxon"/>
+                    <taxon id="E10_Reu3072" spec="Taxon"/>
+                    <taxon id="F01_Moh1" spec="Taxon"/>
+                    <taxon id="F06_JDN39" spec="Taxon"/>
+                    <taxon id="F07_Mau3606" spec="Taxon"/>
+                    <taxon id="F08_Dig6" spec="Taxon"/>
+                    <taxon id="F09_Mau3649" spec="Taxon"/>
+                    <taxon id="F10_Rod164" spec="Taxon"/>
+                    <taxon id="G01_Ald9" spec="Taxon"/>
+                    <taxon id="G02_Csne2" spec="Taxon"/>
+                    <taxon id="G03_GRA10" spec="Taxon"/>
+                    <taxon id="G05_Anj3" spec="Taxon"/>
+                    <taxon id="G07_Mau3572" spec="Taxon"/>
+                    <taxon id="G08_Mau3628" spec="Taxon"/>
+                    <taxon id="G09_Mau3357" spec="Taxon"/>
+                    <taxon id="G10_GGL2" spec="Taxon"/>
+                    <taxon id="H01_Reu3824" spec="Taxon"/>
+                    <taxon id="H03_Rod257" spec="Taxon"/>
+                    <taxon id="H05_GRA5" spec="Taxon"/>
+                    <taxon id="H06_Mau3721" spec="Taxon"/>
+                    <taxon id="H07_Mau3099" spec="Taxon"/>
+                    <taxon id="H08_Mau3333" spec="Taxon"/>
+                    <taxon id="H09_Csn1" spec="Taxon"/>
+                    <taxon id="H10_Rod124" spec="Taxon"/>
+                    <taxon id="Reu_mur" spec="Taxon"/>
+                    <taxon id="Reu_punc" spec="Taxon"/>
+                </taxonset>
+            </distribution>
         </distribution>
         <distribution id="likelihood" spec="util.CompoundDistribution" useThreads="true">
             <distribution id="treeLikelihood.COII" spec="ThreadedTreeLikelihood" data="@COII" tree="@Tree.t:COII">
@@ -452,10 +515,6 @@ id="H3">
 
     <operator id="YuleModelWilsonBalding.t:COII" spec="WilsonBalding" tree="@Tree.t:COII" weight="3.0"/>
 
-    <operator id="FrequenciesExchanger.s:COII" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
-        <parameter idref="freqParameter.s:COII"/>
-    </operator>
-
     <operator id="RateACScaler.s:COII" spec="ScaleOperator" parameter="@rateAC.s:COII" scaleFactor="0.5" weight="0.1"/>
 
     <operator id="RateAGScaler.s:COII" spec="ScaleOperator" parameter="@rateAG.s:COII" scaleFactor="0.5" weight="0.1"/>
@@ -480,16 +539,20 @@ id="H3">
 
     <operator id="ClockRateScaler.c:ArgK" spec="ScaleOperator" parameter="@clockrates.c:ArgK" scaleFactor="0.5" weight="15.0"/>
 
-    <operator id="FrequenciesExchanger.s:28S" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
-        <parameter idref="freqParameter.s:28S"/>
+    <operator id="FrequenciesExchanger.s:COII" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
+        <parameter idref="freqParameter.s:COII"/>
+    </operator>
+
+    <operator id="FrequenciesExchanger.s:H3" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
+        <parameter idref="freqParameter.s:H3"/>
     </operator>
 
     <operator id="FrequenciesExchanger.s:ArgK" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
         <parameter idref="freqParameter.s:ArgK"/>
     </operator>
 
-    <operator id="FrequenciesExchanger.s:H3" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
-        <parameter idref="freqParameter.s:H3"/>
+    <operator id="FrequenciesExchanger.s:28S" spec="DeltaExchangeOperator" delta="0.01" weight="0.1">
+        <parameter idref="freqParameter.s:28S"/>
     </operator>
 
     <logger id="tracelog" fileName="Random_Cratopus_BEAST.log" logEvery="20000" model="@posterior" sanitiseHeaders="true" sort="smart">
@@ -503,7 +566,6 @@ id="H3">
         <log idref="treeLikelihood.28S"/>
         <log idref="treeLikelihood.ArgK"/>
         <log idref="treeLikelihood.H3"/>
-        <log idref="freqParameter.s:COII"/>
         <log idref="rateAC.s:COII"/>
         <log idref="rateAG.s:COII"/>
         <log idref="rateAT.s:COII"/>
@@ -518,9 +580,11 @@ id="H3">
         <log idref="Indicators.c:ArgK"/>
         <log idref="clockrates.c:ArgK"/>
         <log idref="RRateChanges.c:ArgK"/>
-        <log idref="freqParameter.s:28S"/>
-        <log idref="freqParameter.s:ArgK"/>
+        <log idref="ingroup.prior"/>
+        <log idref="freqParameter.s:COII"/>
         <log idref="freqParameter.s:H3"/>
+        <log idref="freqParameter.s:ArgK"/>
+        <log idref="freqParameter.s:28S"/>
     </logger>
 
     <logger id="screenlog" logEvery="1000">
