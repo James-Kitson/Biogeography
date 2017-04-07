@@ -1,6 +1,81 @@
 ---
-title: "Kitson <i>et al.</i> Cratopine Biogeography"
+title: "Kitson *et al.* Cratopine Biogeography"
 output: html_notebook
 ---
 
 #The aim of this note book is to demonstrate the methods used to plot and analyse the output from the MrBayes and BEAST2 analyses employed in Kitson *et al.* (20XX) *Community assembly and diversification in a species-rich radiation of island weevils (Coleoptera: Cratopini)*
+********************************************************************
+##BEAST Biogeography
+
+First of all we will load all the libraries we will need throughout the notebook
+```{r}
+rm(list=ls())
+
+##The first three commands are used to install ggtree but you only need to do this once
+#source("https://bioconductor.org/biocLite.R")
+#biocLite("EBImage")
+#biocLite("ggtree")
+#biocLite("Biostrings")
+#library(devtools)
+#install_github("GuangchuangYu/treeio")
+#install_github("GuangchuangYu/ggtree")
+library(ggtree)
+library(ape)
+library(Biostrings)
+```
+
+```{r}
+file <- "BEAST/Tree_and_log_files/Relaxed_Biogeography/Biogeography_MCC.tree"
+beast <- read.beast(file)
+beast
+get.fields(beast)
+```
+
+```{r}
+##Use the match function to change tip.name in the beast object to real names
+#Read in meta data
+names<-read.csv("BEAST/Metadata_files/Multilocus_names.csv", stringsAsFactors = FALSE)
+
+beast@phylo$tip.label<-names$Alt_label[match(beast@phylo$tip.label,names$Name)]
+```
+
+```{r}
+tree.data<-as.data.frame(beast@stats)
+biogeo.data<-as.data.frame(tree.data[,c(14,11,12)])
+write.csv(biogeo.data, file="BEAST/Metadata_files/BEAST_geo.csv")
+
+#test.biogeo<-as.data.frame(matrix(ncol=length(unique(tree.data$location))+1))
+#colnames(test.biogeo)<-c("node",unique(tree.data$location))
+#for(i in 1:nrow(biogeo.data)){
+
+#}
+
+```
+
+```{r}
+###Make a concatenate alignment to plot against the tree
+COII<-as.data.frame(read.nexus.data("BEAST/Input_files/COII.nex"))
+ribo<-as.data.frame(read.nexus.data("BEAST/Input_files/28S.nex"))
+ArgK<-as.data.frame(read.nexus.data("BEAST/Input_files/ArgK.nex"))
+H3<-as.data.frame(read.nexus.data("BEAST/Input_files/H3.nex"))
+
+concat<-rbind(COII,ArgK,ribo,H3)
+
+concat<-t(as.DNAbin(as.matrix(concat)))
+write.dna(concat, file="BEAST/Input_files/concat.fasta", format="fasta", nbcol=100000, colw = 100000)
+```
+
+
+```{r}
+fasta<-"BEAST/Input_files/concat.fasta"
+beast.tree<-ggtree(beast) +
+  theme_tree2() +
+  geom_tiplab() +
+  geom_range(range = "height_0.95_HPD", color = "blue", size=2, alpha=0.3) +
+  ggplot2::xlim(-12,2)
+  
+beast.tree2<-revts(beast.tree)
+beast.tree2
+
+```
+
