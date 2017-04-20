@@ -40,42 +40,57 @@ beast@phylo$tip.label<-names$Alt_label[match(beast@phylo$tip.label,names$Name)]
 ```
 
 ```{r}
+#extract the parsed tree stats from the best object created by ggtree
 tree.data<-as.data.frame(beast@stats)
+#subset this to the data containing node,location and probability for all possible locations for each node
 biogeo.data<-as.data.frame(tree.data[,c(14,11,12)])
-write.csv(biogeo.data, file="BEAST/Metadata_files/BEAST_geo.csv")
 
-#test.biogeo<-as.data.frame(matrix(ncol=length(unique(tree.data$location))+1))
-#colnames(test.biogeo)<-c("node",unique(tree.data$location))
-#for(i in 1:nrow(biogeo.data)){
+#the data comes out as a set of lists so we need to convert the lists of locations and probabilities into character data for export
+biogeo.data$location.set.prob <- as.character(biogeo.data$location.set.prob)
+biogeo.data$location.set <- as.character(biogeo.data$location.set)
 
-#}
+#write out the raw output to a three column csv and parse it using the file parse ggBEAST.py
+write.table(biogeo.data, file="BEAST/Metadata_files/BEAST_geo.txt", row.names = FALSE, sep='\t')
+
+#read the parsed data back in as a nicely formatted data frame ready for summarising and plotting
+biogeo.data<-read.csv(file="BEAST/Metadata_files/BEAST_geo_parsed.csv")
+
+biogeo.data[,2:13][biogeo.data[,2:13] < 0.05] <- 0
+
+pies<-nodepie(subset(biogeo.data, node > 58), cols=2:13, alpha=1)
+
 
 ```
 
 ```{r}
 ###Make a concatenate alignment to plot against the tree
-COII<-as.data.frame(read.nexus.data("BEAST/Input_files/COII.nex"))
-ribo<-as.data.frame(read.nexus.data("BEAST/Input_files/28S.nex"))
-ArgK<-as.data.frame(read.nexus.data("BEAST/Input_files/ArgK.nex"))
-H3<-as.data.frame(read.nexus.data("BEAST/Input_files/H3.nex"))
+#COII<-as.data.frame(read.nexus.data("BEAST/Input_files/COII.nex"))
+#ribo<-as.data.frame(read.nexus.data("BEAST/Input_files/28S.nex"))
+#ArgK<-as.data.frame(read.nexus.data("BEAST/Input_files/ArgK.nex"))
+#H3<-as.data.frame(read.nexus.data("BEAST/Input_files/H3.nex"))
 
-concat<-rbind(COII,ArgK,ribo,H3)
+#concat<-rbind(COII,ArgK,ribo,H3)
 
-concat<-t(as.DNAbin(as.matrix(concat)))
-write.dna(concat, file="BEAST/Input_files/concat.fasta", format="fasta", nbcol=100000, colw = 100000)
+#concat<-t(as.DNAbin(as.matrix(concat)))
+#write.dna(concat, file="BEAST/Input_files/concat.fasta", format="fasta", nbcol=100000, colw = 100000)
 ```
 
 
 ```{r}
-fasta<-"BEAST/Input_files/concat.fasta"
-beast.tree<-ggtree(beast) +
+#fasta<-"BEAST/Input_files/concat.fasta"
+beast.tree<-ggtree(beast, aes(color=location)) +
   theme_tree2() +
   geom_tiplab() +
-  geom_range(range = "height_0.95_HPD", color = "blue", size=2, alpha=0.3) +
-  ggplot2::xlim(-12,2)
+  geom_text2(aes(label=round(posterior,2), subset=posterior>0.8), nudge_x = -0.3, nudge_y = 0.8) +
+  #geom_range(range = "height_0.95_HPD", color = "blue", size=2, alpha=0.3) +
+  ggplot2::xlim(-12,4)
   
 beast.tree2<-revts(beast.tree)
 beast.tree2
+
+svg(file="./Beast_biogeography.svg", width=16, height=8)
+inset(beast.tree2, pies, width=0.07, height=0.07)
+dev.off()
 
 ```
 
