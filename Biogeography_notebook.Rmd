@@ -102,3 +102,24 @@ dev.off()
 
 ```
 
+# We should also check that the BEAST and MrBayes Trees are compatible.
+
+```{r}
+library(phytools)
+
+### read in the tree
+MrBayes.trees<-read.nexus("MrBayes/Tree_files/Cratopus_Multilocus.nex.con.tre")
+MrBayes.tree<-MrBayes.trees[[1]]
+Beast.tree.ape <-read.nexus(file="BEAST/Tree_and_log_files/Relaxed_Biogeography/Biogeography_MCC.tree")
+MrBayes.tree$tip.label<-names$Alt_label[match(MrBayes.tree$tip.label,names$Name)]
+Beast.tree.ape$tip.label<-names$Alt_label[match(Beast.tree.ape$tip.label,names$Name)]
+
+links<-as.matrix(cbind(Beast.tree.ape$tip.label,Beast.tree.ape$tip.label))
+
+svg(file="BEAST/Tree_and_log_files/Relaxed_Biogeography/MrBayes_BEAST_cophylo.svg", width=15, height=8)
+test<-cophylo(MrBayes.tree,Beast.tree.ape, rotate=TRUE)
+plot(test)
+#nodelabels.cophylo(which = 'left', text=MrBayes.tree$node.label)
+#nodelabels.cophylo(which = 'right', text=Beast.tree.ape$node.label)
+dev.off()
+```

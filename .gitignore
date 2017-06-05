@@ -17,3 +17,9 @@ For_BEAST
 *.trees
 *.log
 Biogeography_MCC.tree.pdf
+assoc.csv
+cophylo.svg
+.ipynb_checkpoints
+Prepare_Bayestrees.py
+*.ipynb
+MrBayes_treesets
