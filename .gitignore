@@ -21,5 +21,4 @@ assoc.csv
 cophylo.svg
 .ipynb_checkpoints
 Prepare_Bayestrees.py
-*.ipynb
 MrBayes_treesets
