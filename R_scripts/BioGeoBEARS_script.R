@@ -47,17 +47,15 @@ calc_independent_likelihoods_on_each_branch = compiler::cmpfun(calc_independent_
 
 #######################################################
 ### read in the MCC Cratopus tree from tree annotator
-my.nexus.tree<-read.nexus("Data/trees/Cratopus_MCC_tree.nex")
+my.nexus.tree<-read.nexus("MrBayes/Tree_files/MrBayes_treesets/run1_out.t.MCC")
 
 ### BioGeoBEARS doesn't like nexus files so we export this as .newick format and reimport it.
-write.tree(my.nexus.tree, file="Data/trees/Cratopus_MCC_tree.newick")
-
-#my.tree<-read.tree("Data/trees/Cratopus_MCC_tree.newick")
+write.tree(my.nexus.tree, file="MrBayes/Tree_files/MrBayes_treesets/run1_MCC.newick")
 
 # This is the example Newick file for Hawaiian Psychotria
 # (from Ree & Smith 2008)
 # "trfn" = "tree file name"
-trfn <- "Data/trees/Cratopus_MCC_tree.newick"
+trfn <- "MrBayes/Tree_files/MrBayes_treesets/run1_MCC.newick"
 
 # Look at the raw Newick file:
 moref(trfn)
