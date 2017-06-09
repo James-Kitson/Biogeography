@@ -1,9 +1,9 @@
 ---
 title: "BioGeoBEARS analyses using MrBayes MCC trees"
-output: html_document
+output: html_notebook
 ---
 
-# Setup workspace and all the libraries we'll need
+### Setup workspace with all the libraries and ammendments we'll need
 
 ```{r}
 ### Clear the workspace
@@ -45,5 +45,83 @@ source("http://phylo.wdfiles.com/local--files/biogeobears/summarize_BSM_tables_v
 source("http://phylo.wdfiles.com/local--files/biogeobears/BioGeoBEARS_traits_v1.R") # added traits model
 calc_loglike_sp = compiler::cmpfun(calc_loglike_sp_prebyte)    # crucial to fix bug in uppass calculations
 calc_independent_likelihoods_on_each_branch = compiler::cmpfun(calc_independent_likelihoods_on_each_branch_prebyte)
+```
+
+### Phylogeny file notes from BioGeoBEARS - taken directly from the BioGeoBEARS website
+* Must be binary/bifurcating: no polytomies
+* No negative branch lengths (e.g. BEAST MCC consensus trees sometimes have negative branchlengths)
+* Be careful of very short branches, as BioGeoBEARS will interpret ultrashort branches as direct ancestors
+* You can use non-ultrametric trees, but BioGeoBEARS will interpret any tips significantly below the top of the tree as fossils!  This is only a good idea if you actually do have fossils in your tree, as in e.g. Wood, Matzke et al. (2013), Systematic Biology.
+* The default settings of BioGeoBEARS make sense for trees where the branchlengths are in units of millions of years, and the tree is 1-1000 units tall. If you have a tree with a total height of e.g. 0.00001, you will need to adjust e.g. the max values of d and e, or (simpler) multiply all your branchlengths to get them into reasonable units.
+* DON'T USE SPACES IN SPECIES NAMES, USE E.G. "_"
+
+### Geography file notes from BioGeoBEARS - taken directly from the BioGeoBEARS website
+* This is a PHLYIP-formatted file. This means that in the first line,
+    + the 1st number equals the number of rows (species)
+    + the 2nd number equals the number of columns (number of areas)
+* This is the same format used for C++ LAGRANGE geography files.
+* All names in the geography file must match names in the phylogeny file.
+* DON'T USE SPACES IN SPECIES NAMES, USE E.G. "_"
+* Operational taxonomic units (OTUs) should ideally be phylogenetic lineages, i.e. genetically isolated populations.  These may or may not be identical with species.  You would NOT want to just use specimens, as each specimen automatically can only live in 1 area, which will typically favor DEC+J models. This is fine if the species/lineages really do live in single areas, but you wouldn't want to assume this without thinking about it at least. In summary, you should collapse multiple specimens into species/lineages if data indicates they are the same genetic population.
+
+### Tree processing for BioGeoBEARS
+Taking all of the above into account, we will be using Maximum Clade Credibility (MCC) trees made using our MrBayes output instead of the usual MrBayes consensus trees. [Treeannotator](http://beast.bio.ed.ac.uk/treeannotator) is a tool commonly used to make MCC trees from BEAST analyses but it is not compatible with much of the metadata written into MrBayes formatted nexus tree files. In order to generate the MCC trees, it is necessary to perform some preliminary reformatting of tree files, ready for use in Treeannotator. The following cell performs most of this task.
+
+```{r, message=TRUE, warning=TRUE}
+root_path<-"MrBayes/Tree_files/MrBayes_treesets/"
+
+my_files<-list.files(path = root_path, pattern = "*GTRIG.nex.run.{2,3}t")
+
+for(i in 1:length(my_files)){
+trees_in<-read.nexus(file = paste(root_path, my_files[i], sep =""))
+write.nexus(trees_in[2501:10001], file = paste(root_path,"run",i,"_out.t", sep=''))
+}
+```
+
+# Bit about how you need to modify the trimmed and cleaned treefiles before treannotator will accept the file
+
+In addition to Treeannotator being incompatible with MrBayes format nexus files, BioGeoBEARS is additionally incompatible with the nexus formatted trees from Treeannotator. BioGeoBEARS also does not use standard phylo class objects in R so we have to convert all of our nexus files to newick format by importing the nexus trees and then exporting them in newick format. The next cell performs this task.
+
+```{r}
+### read in the MCC Cratopus tree from tree annotator
+for( i in 1:length(my_files)){
+my.nexus.tree<-read.nexus(paste("MrBayes/Tree_files/MrBayes_treesets/run",i,"_out.t.MCC", sep=""))
+
+### BioGeoBEARS doesn't like nexus files so we export this as .newick format and reimport it.
+write.tree(my.nexus.tree, file=paste("MrBayes/Tree_files/MrBayes_treesets/run",i,"_MCC.newick", sep=""))
+}
+```
+
+```{r}
+# This is the example Newick file for Hawaiian Psychotria
+# (from Ree & Smith 2008)
+# "trfn" = "tree file name"
+trfn <- "MrBayes/Tree_files/MrBayes_treesets/run1_MCC.newick"
+
+# Look at the raw Newick file:
+moref(trfn)
+
+# Look at your phylogeny:
+my.tree <- read.tree(trfn)
+
+### read in the list of names
+name<-read.csv("Metadata/Multilocus_names.csv")
+### read.csv turns text into factors, this gets messy later when plotting
+### so make it character data
+name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
+
+### provide a path to the geography file
+geogfn <- "Metadata/BioGeoBEARS_dist.txt"
+
+# Look at the raw geography text file:
+moref(geogfn)
+
+# Look at your geographic range data:
+tipranges = getranges_from_LagrangePHYLIP(lgdata_fn=geogfn)
+tipranges
+
+# Set the maximum number of areas any species may occupy; this cannot be larger
+# than the number of areas you set up, but it can be smaller.
+max_range_size = 2
 ```
 

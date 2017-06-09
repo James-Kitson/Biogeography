@@ -106,7 +106,7 @@ name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 ######################################################
 
 ### provide a path to the geography file
-geogfn <- "Data/BioGeoBEARS_dist.txt"
+geogfn <- "Metadata/BioGeoBEARS_dist.txt"
 
 # Look at the raw geography text file:
 moref(geogfn)
