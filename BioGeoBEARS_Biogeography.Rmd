@@ -87,14 +87,20 @@ In addition to Treeannotator being incompatible with MrBayes format nexus files,
 for( i in 1:length(my_files)){
 my.nexus.tree<-read.nexus(paste("MrBayes/Tree_files/MrBayes_treesets/run",i,"_out.t.MCC", sep=""))
 
+### read in the list of names
+name<-read.csv("Metadata/Multilocus_names.csv")
+### read.csv turns text into factors, this gets messy later when plotting
+### so make it character data
+name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
+
+my.nexus.tree$tip.label<-name$Alt_label[match(my.nexus.tree$tip.label,name$Name)]
+
 ### BioGeoBEARS doesn't like nexus files so we export this as .newick format and reimport it.
 write.tree(my.nexus.tree, file=paste("MrBayes/Tree_files/MrBayes_treesets/run",i,"_MCC.newick", sep=""))
 }
 ```
 
 ```{r}
-# This is the example Newick file for Hawaiian Psychotria
-# (from Ree & Smith 2008)
 # "trfn" = "tree file name"
 trfn <- "MrBayes/Tree_files/MrBayes_treesets/run1_MCC.newick"
 
@@ -103,12 +109,6 @@ moref(trfn)
 
 # Look at your phylogeny:
 my.tree <- read.tree(trfn)
-
-### read in the list of names
-name<-read.csv("Metadata/Multilocus_names.csv")
-### read.csv turns text into factors, this gets messy later when plotting
-### so make it character data
-name<-data.frame(lapply(name, as.character), stringsAsFactors=FALSE)
 
 ### provide a path to the geography file
 geogfn <- "Metadata/BioGeoBEARS_dist.txt"
@@ -123,5 +123,187 @@ tipranges
 # Set the maximum number of areas any species may occupy; this cannot be larger
 # than the number of areas you set up, but it can be smaller.
 max_range_size = 2
+```
+
+#######################################################
+# DEC AND DEC+J ANALYSES
+
+NOTE: The BioGeoBEARS "DEC" model is identical with  the Lagrange DEC model, and should return identical  ML estimates of parameters, and the same  log-likelihoods, for the same datasets. Ancestral state probabilities at nodes will be slightly different, since BioGeoBEARS is reporting the ancestral state probabilities under the global ML model, and Lagrange is reporting ancestral state probabilities after re-optimizing the likelihood after fixing the state at each node. These will be similar, but not identical. See Matzke (2014), Systematic Biology, for discussion. Also see Matzke (2014) for presentation of the DEC+J model.
+
+### Run DEC
+```{r}
+#Intitialize a default model (DEC model)
+BioGeoBEARS_run_object = define_BioGeoBEARS_run()
+
+# Give BioGeoBEARS the location of the phylogeny Newick file
+BioGeoBEARS_run_object$trfn = trfn
+
+# Give BioGeoBEARS the location of the geography text file
+BioGeoBEARS_run_object$geogfn = geogfn
+
+# Input the maximum range size
+BioGeoBEARS_run_object$max_range_size = max_range_size
+
+BioGeoBEARS_run_object$min_branchlength = 0.000001    # Min to treat tip as a direct ancestor (no speciation event)
+BioGeoBEARS_run_object$include_null_range = TRUE    # set to FALSE for e.g. DEC* model, DEC*+J, etc. (see Massana et al.)
+# also search script on "include_null_range" for other places to change
+```
+
+```{r}
+#Speed options and multicore processing if desired
+BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; use FALSE if worried (e.g. >3 params)
+BioGeoBEARS_run_object$use_optimx = TRUE     # if FALSE, use optim() instead of optimx()
+BioGeoBEARS_run_object$num_cores_to_use = 1
+
+BioGeoBEARS_run_object$force_sparse = FALSE    # force_sparse=TRUE causes pathology & isn't much faster at this scale
+
+# This function loads the dispersal multiplier matrix etc. from the text files into the model object. Required for these to work!
+# (It also runs some checks on these inputs for certain errors.)
+BioGeoBEARS_run_object = readfiles_BioGeoBEARS_run(BioGeoBEARS_run_object)
+
+# Good default settings to get ancestral states
+BioGeoBEARS_run_object$return_condlikes_table = TRUE
+BioGeoBEARS_run_object$calc_TTL_loglike_from_condlikes_table = TRUE
+BioGeoBEARS_run_object$calc_ancprobs = TRUE    # get ancestral states from optim run
+
+# Set up DEC model
+# (nothing to do; defaults)
+
+# Look at the BioGeoBEARS_run_object; it's just a list of settings etc.
+BioGeoBEARS_run_object
+
+# This contains the model object
+BioGeoBEARS_run_object$BioGeoBEARS_model_object
+
+# This table contains the parameters of the model
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table
+
+# Run this to check inputs. Read the error messages if you get them!
+check_BioGeoBEARS_run(BioGeoBEARS_run_object)
+
+### These analyses spit out some R.data files so make a subdirectory od /Data to save them in
+dir.create("Metadata/BioGeoBEARS_save_files", showWarnings = FALSE)
+
+# For a slow analysis, run once, then set runslow=FALSE to just
+# load the saved result.
+runslow = TRUE
+resfn = "Metadata/BioGeoBEARS_save_files/Cratopus_DEC.Rdata" #CHECK THIS BIT! IF YOU'RE ON A MAC, the file extension is .Rdata
+if (runslow)
+{
+  res = bears_optim_run(BioGeoBEARS_run_object)
+  res
+
+  save(res, file=resfn)
+  resDEC = res
+} else {
+  # Loads to "res"
+  load(resfn)
+  resDEC = res
+}
+
+```
+
+### Run DEC+J
+```{r}
+BioGeoBEARS_run_object = define_BioGeoBEARS_run()
+BioGeoBEARS_run_object$trfn = trfn
+BioGeoBEARS_run_object$geogfn = geogfn
+BioGeoBEARS_run_object$max_range_size = max_range_size
+BioGeoBEARS_run_object$min_branchlength = 0.000001    # Min to treat tip as a direct ancestor (no speciation event)
+BioGeoBEARS_run_object$include_null_range = TRUE    # set to FALSE for e.g. DEC* model, DEC*+J, etc. (see Massana et al.)
+# also search script on "include_null_range" for other places to change
+
+# Speed options and multicore processing if desired
+BioGeoBEARS_run_object$speedup = TRUE          # shorcuts to speed ML search; use FALSE if worried (e.g. >3 params)
+BioGeoBEARS_run_object$use_optimx = TRUE     # if FALSE, use optim() instead of optimx()
+BioGeoBEARS_run_object$num_cores_to_use = 1
+BioGeoBEARS_run_object$force_sparse = FALSE    # force_sparse=TRUE causes pathology & isn't much faster at this scale
+
+# This function loads the dispersal multiplier matrix etc. from the text files into the model object. Required for these to work!
+# (It also runs some checks on these inputs for certain errors.)
+BioGeoBEARS_run_object = readfiles_BioGeoBEARS_run(BioGeoBEARS_run_object)
+
+# Good default settings to get ancestral states
+BioGeoBEARS_run_object$return_condlikes_table = TRUE
+BioGeoBEARS_run_object$calc_TTL_loglike_from_condlikes_table = TRUE
+BioGeoBEARS_run_object$calc_ancprobs = TRUE    # get ancestral states from optim run
+
+# Set up DEC+J model
+# Get the ML parameter values from the 2-parameter nested model
+# (this will ensure that the 3-parameter model always does at least as good)
+dstart = resDEC$outputs@params_table["d","est"]
+estart = resDEC$outputs@params_table["e","est"]
+jstart = 0.0001
+
+# Input starting values for d, e
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["d","init"] = dstart
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["d","est"] = dstart
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["e","init"] = estart
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["e","est"] = estart
+
+# Add j as a free parameter
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","type"] = "free"
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","init"] = jstart
+BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table["j","est"] = jstart
+
+check_BioGeoBEARS_run(BioGeoBEARS_run_object)
+
+resfn = "Metadata/BioGeoBEARS_save_files/Cratopus_DEC+J.Rdata"
+runslow = TRUE
+if (runslow)
+{
+  res = bears_optim_run(BioGeoBEARS_run_object)
+  res
+
+  save(res, file=resfn)
+
+  resDECj = res
+} else {
+  # Loads to "res"
+  load(resfn)
+  resDECj = res
+}
+```
+
+```{r}
+#######################################################
+# PDF plots
+#######################################################
+pdffn = "Metadata/BioGeoBEARS_save_files/Cratopus_DEC_vs_DEC+J.pdf"
+pdf(pdffn, width=6, height=6)
+
+#######################################################
+# Plot ancestral states - DEC
+#######################################################
+analysis_titletxt ="BioGeoBEARS DEC on Cratopus MCC tree"
+
+# Setup
+results_object = resDEC
+scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
+
+# States
+res2 = plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="text", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=my.tree, tipranges=tipranges)
+
+# Pie chart
+plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="pie", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=my.tree, tipranges=tipranges)
+
+#######################################################
+# Plot ancestral states - DECJ
+#######################################################
+analysis_titletxt ="BioGeoBEARS DEC+J on Cratopus MCC tree"
+
+# Setup
+results_object = resDECj
+scriptdir = np(system.file("extdata/a_scripts", package="BioGeoBEARS"))
+
+# States
+res1 = plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="text", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=my.tree, tipranges=tipranges)
+
+# Pie chart
+plot_BioGeoBEARS_results(results_object, analysis_titletxt, addl_params=list("j"), plotwhat="pie", label.offset=0.45, tipcex=0.7, statecex=0.7, splitcex=0.6, titlecex=0.8, plotsplits=TRUE, cornercoords_loc=scriptdir, include_null_range=TRUE, tr=my.tree, tipranges=tipranges)
+
+dev.off()  # Turn off PDF
+cmdstr = paste("open ", pdffn, sep="")
+system(cmdstr) # Plot it
 ```
 
