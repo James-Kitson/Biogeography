@@ -1,6 +1,8 @@
 .Rproj.user
 .Rhistory
-.RData
+*.RData
+*.Rdata
+*.pdf
 Biogeography.Rproj
 No_Synch_Scripts
 No_Synch_Data
