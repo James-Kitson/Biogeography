@@ -1,6 +1,6 @@
 # Kitson et al Cratopine Biogeography - Metadata
 
-In this folder the following file srae included:
+This folder contains the additional files required for tree plotting and analysis. The files are as follows:
 
 - [BioGeoBEARS_islands.txt](https://github.com/James-Kitson/Biogeography/blob/master/Metadata/BioGeoBEARS_islands.txt) - The distribution file for BioGeoBEARS.
 - [BioGeoBEARS_latlong.txt](https://github.com/James-Kitson/Biogeography/blob/master/Metadata/BioGeoBEARS_latlong.txt) - The locations of islands for calculating interisland distances.
