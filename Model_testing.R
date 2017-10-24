@@ -66,7 +66,7 @@ write.tree(my.nexus.trees, file="MrBayes/Tree_files/MrBayes_treesets/Run1_newick
 
 
 ###GET FILES
-my_newick<-"MrBayes/Tree_files/MrBayes_treesets/Run1_newick.tree"
+my_newick<-"MrBayes/Tree_files/MrBayes_treesets/run1_MCC.newick"
 
 ###"trfn" = "tree file name"
 trfn <- my_newick
@@ -222,7 +222,7 @@ BioGeoBEARS_run_object$BioGeoBEARS_model_object@params_table
 check_BioGeoBEARS_run(BioGeoBEARS_run_object)
 
 #####These analyses spit out some R.data files so make a subdirectory od /Data to save them in
-dir.create("Metadata/BioGeoBEARS_save_files", showWarnings = FALSE)
+dir.create("Metadata/BioGeoBEARS_save_files_model_testing", showWarnings = FALSE)
 
 ###For a slow analysis, run once, then set runslow=FALSE to just
 ###load the saved result.
