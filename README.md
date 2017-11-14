@@ -2,15 +2,8 @@
 
 In order to make our analyses reproducible we provide:
 
-- [An Rnotebook to process analysis output and plot figures]()
 - [BEAST analysis](https://github.com/James-Kitson/Biogeography/tree/ce0e070ae681183fea5dd5bf3bac8d463e1962c7/BEAST)
 - [MrBayes analysis](https://github.com/James-Kitson/Biogeography/tree/master/MrBayes)
+- [R scripts for BioGeoBEARS analyses and plotting](https://github.com/James-Kitson/Biogeography/tree/master/R_scripts)
+- [Metadata for plotting and analyses](https://github.com/James-Kitson/Biogeography/tree/master/Metadata)
 
-Each analysis folder contains:
-- Input files
-- Metadata files
-- Output consensus or MCC tree files (users wishing to obtain full tree samples should clone the repository and rerun the analyses)
-
-***********************************************************************************************************
-
-The Rnotebook should be executed in the root of the cloned repository. All filepaths are correctly specified for the various analyses.
