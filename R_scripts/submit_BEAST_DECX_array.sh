@@ -13,7 +13,7 @@ module add R/3.4.1 gcc/6.3.0
 
 for i in ${SLURM_ARRAY_TASK_ID}
 do
-	cp BEAST_array_unstratified_DECJX.R BEAST_array_unstratified_DECX_${SLURM_ARRAY_TASK_ID}.R
+	cp BEAST_array_unstratified_DECX.R BEAST_array_unstratified_DECX_${SLURM_ARRAY_TASK_ID}.R
 	sed -i -e "s/array_tag/${SLURM_ARRAY_TASK_ID}/g" BEAST_array_unstratified_DECX_${SLURM_ARRAY_TASK_ID}.R
 done
 
