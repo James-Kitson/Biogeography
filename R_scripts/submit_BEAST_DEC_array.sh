@@ -1,7 +1,7 @@
 #!/bin/sh -e
 
 #!/bin/bash
-#SBATCH -J Relaxed_BEAST
+#SBATCH -J DEC
 #SBATCH -N 1
 #SBATCH -n 28
 #SBATCH -o %A-%a.log
@@ -17,5 +17,5 @@ do
 	sed -i -e "s/array_tag/${SLURM_ARRAY_TASK_ID}/g" BEAST_array_unstratified_DEC_${SLURM_ARRAY_TASK_ID}.R
 done
 
-R CMD BATCH "BEAST_array_unstratified_DECJX_${SLURM_ARRAY_TASK_ID}".R
+R CMD BATCH "BEAST_array_unstratified_DEC_${SLURM_ARRAY_TASK_ID}".R
 
