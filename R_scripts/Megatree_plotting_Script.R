@@ -19,6 +19,6 @@ megatree$tip.label <- name$name[match(megatree$tip.label,name$Sample)]
 megatree<-ladderize(megatree)
 
 
-pdf(file = "~/Desktop/Random Cratopus stuff to dump after review/RAxML for SI tree/fig_S1.1_v3.pdf",width = 25, height = 110)
+pdf(file = "Figures/fig_S1.1_v3.pdf",width = 25, height = 110)
 plot(megatree, tip.color = megatree$tip.colour, cex = 0.8)
 dev.off()
