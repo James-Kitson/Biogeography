@@ -1,4 +1,4 @@
-# Kitson et al Cratopine Biogeography
+# Kitson et al Cratopine Biogeography - R Scripts
 
 The R scripts in this folder are as follows:
 

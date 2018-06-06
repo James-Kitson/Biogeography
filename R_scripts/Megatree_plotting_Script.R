@@ -8,7 +8,7 @@ library(ape)
 library(phytools)
 
 #megatree<-read.nexus("Data/trees/Supplementary_Trees/Supplementary_COII.nex")
-megatree<-read.newick("~/Desktop/Random Cratopus stuff to dump after review/RAxML for SI tree/RAxML_bestTree.Supplementary_COII")
+megatree<-read.newick("RAxML/Outputs/RAxML_bestTree.Supplementary_COII")
 megatree<-root(megatree, outgroup = "Outgroup")
   
 name<-read.csv("Metadata/Supplementary_names.csv", stringsAsFactors = FALSE)
