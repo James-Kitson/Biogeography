@@ -1,4 +1,4 @@
-# Community assembly and diversification in a species-rich radiation of island weevils (Coleoptera: Cratopini) Version 1.0)
+# Community assembly and diversification in a species-rich radiation of island weevils (Coleoptera: Cratopini) Version 2.0)
 
 James J. N. Kitson<sup>1</sup>, Ben H. Warren<sup>2</sup>, Christophe Thébaud<sup>3</sup>, Dominique Strasberg<sup>4</sup> and Brent C. Emerson<sup>5,6</sup> 
 1. School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, NE1 7RU, United Kingdom.
