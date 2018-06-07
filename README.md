@@ -1,4 +1,4 @@
-# Community assembly and diversification in a species-rich radiation of island weevils (Coleoptera: Cratopini) Version 2.0)
+# Community assembly and diversification in a species-rich radiation of island weevils (Coleoptera: Cratopini) Version 2.2)
 
 James J. N. Kitson<sup>1</sup>, Ben H. Warren<sup>2</sup>, Christophe Thébaud<sup>3</sup>, Dominique Strasberg<sup>4</sup> and Brent C. Emerson<sup>5,6</sup> 
 1. School of Natural and Environmental Sciences, Newcastle University, Newcastle upon Tyne, NE1 7RU, United Kingdom.
@@ -9,7 +9,8 @@ James J. N. Kitson<sup>1</sup>, Ben H. Warren<sup>2</sup>, Christophe Thébaud<s
 6. School of Biological Sciences, University of East Anglia, Norwich Research Park, Norwich NR4 7TJ, United Kingdom
 ***
 
-This repository is associated with the above manuscript submitted to Journal of Biogeography. 
+This repository is associated with the above manuscript published in [Journal of Biogeography](https://doi.org/10.1111/jbi.13393).
+This repository is also archived on Zenodo [![DOI](https://zenodo.org/badge/47623669.svg)](https://zenodo.org/badge/latestdoi/47623669)
 
 In order to make our analyses fully reproducable we provide:
 - [BEAST analysis](https://github.com/James-Kitson/Biogeography/tree/ce0e070ae681183fea5dd5bf3bac8d463e1962c7/BEAST)
