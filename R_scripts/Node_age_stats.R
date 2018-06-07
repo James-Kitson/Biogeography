@@ -3,7 +3,7 @@ rm(list=ls())
 colonisation_means<-NULL
 
 for(i in 1:1000){
-  node_ages<-read.csv(paste("~/Desktop/Viper_holding/DECJX/colonisation_means_unstratified_",i,".csv",sep=""))
+  node_ages<-read.csv(paste("~/",<your holding folder for cluster output>,"/colonisation_means_unstratified_",i,".csv",sep=""))
   colonisation_means<-rbind(colonisation_means,node_ages)
 }
 

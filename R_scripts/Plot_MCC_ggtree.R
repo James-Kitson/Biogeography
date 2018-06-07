@@ -11,20 +11,18 @@ library(phytools)
 library(plyr)
 library(ggtree)
 
-names<-read.csv("StarBEAST/Multilocus_names_starBEAST.csv", stringsAsFactors = FALSE)
-clades<-read.csv("StarBEAST/Multilocus_clades.csv", stringsAsFactors = FALSE)
+names<-read.csv("Metadata/Multilocus_names.csv", stringsAsFactors = FALSE)
 
 #############################################################################
 #### check MrBayes vs BEAST topology
 #############################################################################
 
-#BEASTMCC <- read.beast(file = "BEAST/Tree_and_log_files/Relaxed_clock_modeltest2_Good_age/Relaxed_clock_MCC.tree")
-BEASTMCC <- read.beast(file = "StarBEAST//starBEAST_MCC.tree")
+BEASTMCC <- read.beast(file = "BEAST/Tree_and_log_files/Relaxed_clock/Relaxed_clock_MCC.tree")
 
 ### spit out a newick tree to use with BioGeoBEARS for the relaxed BEAST analysis
-#write.tree(BEASTMCC@phylo, file = "BEAST/Tree_and_log_files/Relaxed_clock_modeltest2_Good_age/Relaxed_clock_MCC_newick.tree")
+#write.tree(BEASTMCC@phylo, file = "BEAST/Tree_and_log_files/Relaxed_clock/Relaxed_clock_MCC_newick.tree")
 
-#BEASTMCC@phylo$tip.label<-names$Alt_label[match(BEASTMCC@phylo$tip.label, names$starBEAST_label)]
+BEASTMCC@phylo$tip.label<-names$Alt_label[match(BEASTMCC@phylo$tip.label, names$label)]
 
 #############################################################################
 ### Plot the BEAST tree with different annotations and node bars 
@@ -78,19 +76,10 @@ BEASTMCC_plot_nodeageHPD<-ggtree(BEASTMCC, ndigits=2) +
 BEASTMCC_plot_nodeageHPD<-BEASTMCC_plot_nodeageHPD %<+% clades + geom_tiplab(aes(colour= colour))
 
 
-#pdf(file = "Figures/BEAST_Relaxed_clock_MCC.pdf", 8.27,11.69)
-#revts(rotate(BEASTMCC_plot_support,59)) + ggplot2::xlim(-15, 20)
-#revts(rotate(BEASTMCC_plot_nodes,59)) + ggplot2::xlim(-15, 20)
-#revts(rotate(BEASTMCC_plot_nodeage,59)) + ggplot2::xlim(-15, 20)
-#revts(rotate(BEASTMCC_plot_nodebars,59)) + ggplot2::xlim(-15, 20)
-#revts(rotate(BEASTMCC_plot_nodeageHPD,59)) + ggplot2::xlim(-15, 20)
-#dev.off()
-
-
-pdf(file = "StarBEAST/BEAST_Relaxed_clock_MCC.pdf", 8.27,11.69)
-revts(rotate(BEASTMCC_plot_support,59)) + ggplot2::xlim(-30, 20)
-revts(rotate(BEASTMCC_plot_nodes,59)) + ggplot2::xlim(-30, 20)
-revts(rotate(BEASTMCC_plot_nodeage,59)) + ggplot2::xlim(-30, 20)
-revts(rotate(BEASTMCC_plot_nodebars,59)) + ggplot2::xlim(-30, 20)
-revts(rotate(BEASTMCC_plot_nodeageHPD,59)) + ggplot2::xlim(-30, 20)
+pdf(file = "Figures/BEAST_Relaxed_clock_MCC.pdf", 8.27,11.69)
+revts(rotate(BEASTMCC_plot_support,59)) + ggplot2::xlim(-15, 20)
+revts(rotate(BEASTMCC_plot_nodes,59)) + ggplot2::xlim(-15, 20)
+revts(rotate(BEASTMCC_plot_nodeage,59)) + ggplot2::xlim(-15, 20)
+revts(rotate(BEASTMCC_plot_nodebars,59)) + ggplot2::xlim(-15, 20)
+revts(rotate(BEASTMCC_plot_nodeageHPD,59)) + ggplot2::xlim(-15, 20)
 dev.off()
